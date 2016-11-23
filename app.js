@@ -3,7 +3,7 @@ var http = require('http');
 var server = http.createServer();
 var io = require('socket.io').listen(server);
 
-server.listen(8888);//8888番ポートで起動
+server.listen(3000);//8888番ポートで起動
 
 //接続確立時の処理
 io.sockets.on('connection', function (socket) {
