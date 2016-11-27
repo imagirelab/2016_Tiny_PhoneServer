@@ -16,10 +16,7 @@ io.sockets.on('connection', function (socket)
     //送られたデーモンのデータ送信
     socket.on("DemonPush", function (Type, Direction, Level, PlayerID)
     {
-        var _Type = Type.message;
-
-        console.log('Type is :' + _Type);
-        socket.broadcast.emit("DemonPush", _Type, Direction, Level, id);
+        console.log('called');
     });
 
 });
