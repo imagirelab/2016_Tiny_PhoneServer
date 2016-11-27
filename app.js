@@ -14,9 +14,10 @@ io.sockets.on('connection', function (socket)
     console.log('connected');
 
     //送られたデーモンのデータ送信
-    socket.on("DemonPush", function (Type, Direction, Level, PlayerID)
+    socket.on("DemonPush", function (DemonData)
     {
         console.log('called');
+        socket.broadcast.emit("DemonPushed", { Type: DemonData.Type, Direction: DemonData.Direction, Level: DemonData.Level, PlayerID: DemonData.PlayerID })
     });
 
 });
