@@ -17,6 +17,7 @@ io.sockets.on('connection', function (socket)
     socket.on("DemonPush", function (DemonData)
     {
         console.log('called');
+        console.log('Data : ' + DemonData.Type);
         socket.broadcast.emit("DemonPushed", { Type: DemonData.Type, Direction: DemonData.Direction, Level: DemonData.Level, PlayerID: DemonData.PlayerID })
     });
 
