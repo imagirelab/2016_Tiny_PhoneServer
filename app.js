@@ -50,6 +50,7 @@ var server = http.createServer(function(request, response) {
 
 var io = require('socket.io').listen(server);
 
+
 //ローカル使用時
 //server.listen(5555);
 //グローバル使用時
