@@ -63,6 +63,7 @@ io.sockets.on('connection', function (socket)
     // この中でデータのやり取りを行う
     console.log('connected');
     
+    //ロビーに入った時の処理
     socket.on("EnterRobby", function()
     {
         console.log("PushPlayerID : " + PlayerID);
@@ -79,15 +80,17 @@ io.sockets.on('connection', function (socket)
     	}
     });
 
+    //送られた必殺技リクエストのデータ送信
     socket.on("DeadlyPush", function (DeadlyData)
     {
-        console.log("DeadlyFire");
+        console.log("Deadly : " + DeadlyData.Deadly);
         console.log("PlayerID : " + DeadlyData.PlayerID);
 
+        var Deadlystr = DeadlyData.Deadly.toString();
         var PlayerIDstr = DeadlyData.PlayerID.toString();
 
         //DeadlyData.Deadlyには"Fire"が入っています。PlayerIDにはstringで0か1が入っています。
-        socket.broadcast.emit("DeadlyPushed", {Deadly: DeadlyData.Deadly, PlayerID: PlayerIDstr});
+        socket.broadcast.emit("DeadlyPushed", {Deadly: Deadlystr, PlayerID: PlayerIDstr});
     });
 
     //送られたデーモンのデータ送信
@@ -99,10 +102,25 @@ io.sockets.on('connection', function (socket)
         console.log('Level : ' + DemonData.Level);
         console.log('PlayerID : ' + DemonData.PlayerID);
         
+        var DemonTypestr = DemonData.Type.toString();
+        var Directionstr = DemonData.Direction.toString();
         var PlayerIDstr = DemonData.PlayerID.toString();
         var Levelstr = DemonData.Level.toString();
         
-        socket.broadcast.emit("DemonPushed", { Type: DemonData.Type, Direction: DemonData.Direction, Level: Levelstr, PlayerID: PlayerIDstr });
+        socket.broadcast.emit("DemonPushed", { Type: DemonTypestr, Direction: Directionstr, Level: Levelstr, PlayerID: PlayerIDstr });
+    });
+
+    //魂が送られた時のデータ送信
+    socket.on("SpiritPush", function (SpiritData)
+    {
+        console.log("SpiritPushed");
+        console.log('Type : ' + SpiritData.Type);
+        console.log('PlayerID : ' + SpiritData.PlayerID);
+
+        var Typestr = SpiritData.Type.toString();
+        var PlayerIDstr = SpiritData.PlayerID.toString();
+
+        socket.emit("SpiritPushed", { Type: Typestr, PlayerID: PlayerIDstr });
     });
 
 });
