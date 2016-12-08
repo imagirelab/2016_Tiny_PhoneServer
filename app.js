@@ -47,7 +47,6 @@ var server = http.createServer(function(request, response) {
  
    
 });
-
 var io = require('socket.io').listen(server);
 
 //ローカル使用時
@@ -66,16 +65,38 @@ io.sockets.on('connection', function (socket)
     
     socket.on("EnterRobby", function()
     {
-    	console.log(PlayerID);
-    	socket.emit("PushPlayerID", {PlayerID : PlayerID});
-    	++PlayerID;
+        console.log("PushPlayerID : " + PlayerID);
+
+        socket.emit("PushPlayerID", { PlayerID: PlayerID });
+
+    	if(PlayerID == 0)
+    	{
+    	    PlayerID = 1;
+    	}
+    	else
+    	{
+    	    PlayerID = 0;
+    	}
+    });
+
+    socket.on("DeadlyPush", function (DeadlyData)
+    {
+        console.log("DeadlyFire");
+        console.log("PlayerID : " + DeadlyData.PlayerID);
+
+        var PlayerIDstr = DeadlyData.PlayerID.toString();
+
+        //DeadlyData.Deadlyには"Fire"が入っています。PlayerIDにはstringで0か1が入っています。
+        socket.broadcast.emit("DeadlyPushed", {Deadly: DeadlyData.Deadly, PlayerID: PlayerIDstr});
     });
 
     //送られたデーモンのデータ送信
     socket.on("DemonPush", function (DemonData)
     {
-        console.log('called');
+        console.log('DemonPushed');
         console.log('Data : ' + DemonData.Type);
+        console.log('Direction : ' + DemonData.Direction);
+        console.log('Level : ' + DemonData.Level);
         console.log('PlayerID : ' + DemonData.PlayerID);
         
         var PlayerIDstr = DemonData.PlayerID.toString();
