@@ -52,7 +52,7 @@ var io = require('socket.io').listen(server);
 //ローカル使用時
 //server.listen(5555);
 //グローバル使用時
-server.listen(process.env.PORT);
+server.listen(process.env.PORT || 5555);
 
 //var DemonData = {};
 var PlayerID = 0;
