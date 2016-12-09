@@ -54,7 +54,7 @@ var io = require('socket.io').listen(server);
 //グローバル使用時
 server.listen(process.env.PORT || 5555);
 
-//var DemonData = {};
+//プレイヤーID管理
 var PlayerID = 0;
 
 //接続確立時の処理
@@ -68,7 +68,10 @@ io.sockets.on('connection', function (socket)
     {
         console.log("PushPlayerID : " + PlayerID);
 
-        socket.emit("PushPlayerID", { PlayerID: PlayerID });
+        var PlayerIDstr = PlayerID.toString();
+
+        socket.emit("PushPlayerID", { PlayerID: PlayerIDstr });
+        socket.broadcast.emit("PushRobbyID", { PlayerID: PlayerIDstr });
 
     	if(PlayerID == 0)
     	{
@@ -78,6 +81,16 @@ io.sockets.on('connection', function (socket)
     	{
     	    PlayerID = 0;
     	}
+    });
+
+    socket.on("StopRequest", function ()
+    {
+        socket.broadcast.emit("PushStopRequest");
+    });
+
+    socket.on("StopEndRequest", function ()
+    {
+        socket.broadcast.emit("PushStopEndRequest");
     });
 
     //送られた必殺技リクエストのデータ送信
