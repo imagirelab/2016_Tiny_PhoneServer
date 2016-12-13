@@ -93,6 +93,11 @@ io.sockets.on('connection', function (socket)
         socket.broadcast.emit("PushStopEndRequest");
     });
 
+    socket.on("MatchingEndRequest", function()
+    {
+        socket.broadcast.emit("PushMatchingEnd");
+    });
+
     //送られた必殺技リクエストのデータ送信
     socket.on("DeadlyPush", function (DeadlyData)
     {

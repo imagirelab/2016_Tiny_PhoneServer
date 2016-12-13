@@ -1,6 +1,6 @@
 //var socket = io.connect('https://safe-reef-35714.herokuapp.com/');
-//var socket = io.connect('ws://192.168.11.250:5555', {forceJSONP: true});
-var socket = io.connect('http://localhost:5555', {forceJSONP: true});
+var socket = io.connect('http://192.168.11.250:5555', {forceJSONP: true});
+//var socket = io.connect('http://localhost:5555', {forceJSONP: true});
 //var socket = io.connect('ws://192.168.11.250:5555', {transports: ["websocket"]});
 
 var myPlayerID = 0;
@@ -9,8 +9,6 @@ socket.on("connect", function () {
     var id = socket.io.engine.id;
     console.log("Connected ID: " + id);
 });
-
-
 
 enchant();
 
@@ -164,7 +162,7 @@ window.onload = function ()
             scene.addEventListener(Event.TOUCH_START, function ()
             {
                 //現在表示しているシーンをゲームシーンに置き換えます
-                core.replaceScene(MainScene());              
+                core.replaceScene(MatchingScene());              
             });            
 
             ////////描画////////
@@ -200,6 +198,12 @@ window.onload = function ()
                 else {
                     teamColor.image = core.assets['matchingUI/teamb.png'];
                 }
+            });
+
+            socket.on("PushMatchingEnd", function ()
+            {
+                //現在表示しているシーンをゲームシーンに置き換えます
+                core.replaceScene(MainScene());
             });
 
             scene.addChild(back);
@@ -682,11 +686,13 @@ function Demon(Type, Direction, Level, PlayerID, BaseCost, Cost, HP, ATK, SPEED)
     this.ATK = ATK;
     this.SPEED = SPEED;
 }
+
 //座標取得クラス
 function TapPos(x, y) {
     this.x = x;
     this.y = y;
 }
+
 //スピリットクラス
 function Spirit(Type, PlayerID, core)
 {

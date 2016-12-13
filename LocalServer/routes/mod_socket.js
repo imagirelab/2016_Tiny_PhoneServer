@@ -25,7 +25,6 @@ var server = http.createServer(function (request, response) {
             response.writeHead(500, { "Content-Type": "text/plain" });
             response.write(err + "\n");
             response.end();
-
         }
     }
 
@@ -82,6 +81,11 @@ io.sockets.on('connection', function (socket) {
 
     socket.on("StopEndRequest", function () {
         socket.broadcast.emit("PushStopEndRequest");
+    });
+
+    socket.on("MatchingEndRequest", function ()
+    {
+        socket.broadcast.emit("PushMatchingEnd");
     });
 
     //送られた必殺技リクエストのデータ送信
