@@ -93,6 +93,10 @@ io.sockets.on('connection', function (socket)
         socket.broadcast.emit("PushStopEndRequest");
     });
 
+    socket.on("GameEndRequest", function () {
+        socket.broadcast.emit("PushGameEndRequest");
+    });
+
     socket.on("MatchingEndRequest", function()
     {
         socket.broadcast.emit("PushMatchingEnd");
