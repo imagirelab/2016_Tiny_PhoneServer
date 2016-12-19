@@ -82,24 +82,25 @@ io.sockets.on('connection', function (socket)
     	    PlayerID = 0;
     	}
     });
-
+    //ポーズ開始の送信
     socket.on("StopRequest", function ()
     {
         socket.broadcast.emit("PushStopRequest");
     });
-
+    //ポーズ終了の送信
     socket.on("StopEndRequest", function ()
     {
         socket.broadcast.emit("PushStopEndRequest");
     });
-
+    //試合が終了したときに送る
     socket.on("GameEndRequest", function () {
         socket.broadcast.emit("PushGameEndRequest");
     });
-
+    //コストの送信
     socket.on("AddCost", function (CostData) {
         var Coststr = CostData.Cost.toString();
-        socket.broadcast.emit("PushAddCost", {Cost: Coststr});
+        var PlayerIDstr = CostData.PlayerID.toString();
+        socket.broadcast.emit("PushAddCost", {Cost: Coststr, PlayerID: PlayerIDstr});
     });
 
     socket.on("MatchingEndRequest", function()
