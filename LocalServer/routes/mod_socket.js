@@ -87,6 +87,11 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit("PushGameEndRequest");
     });
 
+    socket.on("AddCost", function (CostData) {
+        var Coststr = CostData.Cost.toString();
+        socket.broadcast.emit("PushAddCost", { Cost: Coststr });
+    });
+
     socket.on("MatchingEndRequest", function ()
     {
         socket.broadcast.emit("PushMatchingEnd");
