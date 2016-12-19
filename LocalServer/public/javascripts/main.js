@@ -1,5 +1,6 @@
 //var socket = io.connect('https://safe-reef-35714.herokuapp.com/');
-var socket = io.connect('ws://192.168.11.250:3000');
+var socket = io.connect('ws://192.168.11.250:5555');
+//var socket = io.connect('http://localhost:5555');
 
 var myPlayerID = 0;
 
@@ -118,6 +119,9 @@ window.onload = function ()
     core.preload('img/baratack.png');
     core.preload('img/barhp.png');
     core.preload('img/barspeed.png');
+    core.preload('img/speed.png');
+    core.preload('img/atack.png');
+    core.preload('img/life.png');
 
     //スピリット
     core.preload('img/pupu_soul.png');
@@ -174,7 +178,8 @@ window.onload = function ()
             scene.addEventListener(Event.TOUCH_START, function ()
             {
                 //現在表示しているシーンをゲームシーンに置き換えます
-                core.replaceScene(MatchingScene());              
+                //core.replaceScene(MatchingScene());
+                core.replaceScene(MainScene());
             });            
 
             ////////描画////////
@@ -217,6 +222,12 @@ window.onload = function ()
                 else {
                     teamColor.image = core.assets['matchingUI/teamb.png'];
                 }
+            });
+
+            //プレイヤーIDのセット
+            socket.on("PushMatchingEnd", function () {
+                //現在表示しているシーンをゲームシーンに置き換えます
+                core.replaceScene(MainScene());
             });
 
             scene.addChild(back);
@@ -397,6 +408,28 @@ window.onload = function ()
             PUPUStatusBar[2].originX = 2200;
             PUPUStatusBar[2].originY = 500;
 
+            //ステータスのアイコン
+            var PUPUStatusIcon = new Array();
+            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
+            PUPUStatusIcon[0] = new Sprite(600, 600);
+            PUPUStatusIcon[1] = new Sprite(600, 600);
+            PUPUStatusIcon[2] = new Sprite(600, 600);
+            //イメージの画像読み込み
+            PUPUStatusIcon[0].image = core.assets['img/life.png'];
+            PUPUStatusIcon[1].image = core.assets['img/atack.png'];
+            PUPUStatusIcon[2].image = core.assets['img/speed.png'];
+            //スケールの設定
+            PUPUStatusIcon[0].scale(0.15, 0.15);
+            PUPUStatusIcon[1].scale(0.15, 0.15);
+            PUPUStatusIcon[2].scale(0.15, 0.15);
+            //座標設定
+            PUPUStatusIcon[0].originX = 2100;
+            PUPUStatusIcon[0].originY = 300;
+            PUPUStatusIcon[1].originX = 2100;
+            PUPUStatusIcon[1].originY = 400;
+            PUPUStatusIcon[2].originX = 2100;
+            PUPUStatusIcon[2].originY = 500;
+
             //ステータスバー部分
             var POPOStatusBar = new Array();
             //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
@@ -422,6 +455,28 @@ window.onload = function ()
             POPOStatusBar[1].originY = 1100;
             POPOStatusBar[2].originX = 2200;
             POPOStatusBar[2].originY = 1200;
+
+            //ステータスのアイコン
+            var POPOStatusIcon = new Array();
+            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
+            POPOStatusIcon[0] = new Sprite(600, 600);
+            POPOStatusIcon[1] = new Sprite(600, 600);
+            POPOStatusIcon[2] = new Sprite(600, 600);
+            //イメージの画像読み込み
+            POPOStatusIcon[0].image = core.assets['img/life.png'];
+            POPOStatusIcon[1].image = core.assets['img/atack.png'];
+            POPOStatusIcon[2].image = core.assets['img/speed.png'];
+            //スケールの設定
+            POPOStatusIcon[0].scale(0.15, 0.15);
+            POPOStatusIcon[1].scale(0.15, 0.15);
+            POPOStatusIcon[2].scale(0.15, 0.15);
+            //座標設定
+            POPOStatusIcon[0].originX = 2100;
+            POPOStatusIcon[0].originY = 1000;
+            POPOStatusIcon[1].originX = 2100;
+            POPOStatusIcon[1].originY = 1100;
+            POPOStatusIcon[2].originX = 2100;
+            POPOStatusIcon[2].originY = 1200;
 
             //ステータスバー部分
             var PIPIStatusBar = new Array();
@@ -449,7 +504,29 @@ window.onload = function ()
             PIPIStatusBar[2].originX = 2200;
             PIPIStatusBar[2].originY = 1900;
 
-            ////////メイン処理////////
+            //ステータスのアイコン
+            var PIPIStatusIcon = new Array();
+            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
+            PIPIStatusIcon[0] = new Sprite(600, 600);
+            PIPIStatusIcon[1] = new Sprite(600, 600);
+            PIPIStatusIcon[2] = new Sprite(600, 600);
+            //イメージの画像読み込み
+            PIPIStatusIcon[0].image = core.assets['img/life.png'];
+            PIPIStatusIcon[1].image = core.assets['img/atack.png'];
+            PIPIStatusIcon[2].image = core.assets['img/speed.png'];
+            //スケールの設定
+            PIPIStatusIcon[0].scale(0.15, 0.15);
+            PIPIStatusIcon[1].scale(0.15, 0.15);
+            PIPIStatusIcon[2].scale(0.15, 0.15);
+            //座標設定
+            PIPIStatusIcon[0].originX = 2100;
+            PIPIStatusIcon[0].originY = 1700;
+            PIPIStatusIcon[1].originX = 2100;
+            PIPIStatusIcon[1].originY = 1800;
+            PIPIStatusIcon[2].originX = 2100;
+            PIPIStatusIcon[2].originY = 1900;
+
+            ////////////////////////メイン処理////////////////////////
             //フレームごとに処理する
             core.addEventListener('enterframe', function ()
             {
@@ -491,16 +568,138 @@ window.onload = function ()
                     }
                 }
 
-                //スケールの設定を毎フレーム確認(成長度合いをスケールで調整)
-                PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
-                PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
-                PUPUStatusBar[2].width = PUPU.SPEED / MAXSPEED * 600;
-                POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
-                POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
-                POPOStatusBar[2].width = POPO.SPEED / MAXSPEED * 600;
-                PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
-                PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
-                PIPIStatusBar[2].width = PIPI.SPEED / MAXSPEED * 600;
+                //ステータスバーの管理
+                {
+                    //横幅の設定を毎フレーム確認(成長度合いをスケールで調整)
+                    var PUPUHPwidth = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP;
+                    var PUPUATKwidth = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK;
+                    var PUPUSPEEDwidth = PUPU.SPEED / MAXSPEED;
+                    var POPOHPwidth = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP;
+                    var POPOATKwidth = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK;
+                    var POPOSPEEDwidth = POPO.SPEED / MAXSPEED;
+                    var PIPIHPwidth = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP;
+                    var PIPIATKwidth = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK;
+                    var PIPISPEEDwidth = PIPI.SPEED / MAXSPEED;
+
+                    ////////////////////////////////////HP////////////////////////////////////
+                    //ププの段階上昇
+                    if (PUPUHPwidth > 15) {
+                        PUPUStatusBar[0].opacity = 1;
+                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 20;
+                    }
+                    else if (PUPUHPwidth > 10) {
+                        PUPUStatusBar[0].opacity = 0.7;
+                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 100;
+                    }
+                    else if (PUPUHPwidth > 5) {
+                        PUPUStatusBar[0].opacity = 0.5;
+                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 300;
+                    }
+                    else {
+                        PUPUStatusBar[0].opacity = 0.3;
+                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
+                    }
+
+                    //ポポの段階上昇
+                    if (POPOHPwidth > 15) {
+                        POPOStatusBar[0].opacity = 1;
+                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 20;
+                    }
+                    else if (POPOHPwidth > 10) {
+                        POPOStatusBar[0].opacity = 0.7;
+                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 100;
+                    }
+                    else if (POPOHPwidth > 5) {
+                        POPOStatusBar[0].opacity = 0.5;
+                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 300;
+                    }
+                    else {
+                        POPOStatusBar[0].opacity = 0.3;
+                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
+                    }
+
+                    //ピピの段階上昇
+                    if (PIPIHPwidth > 15) {
+                        PIPIStatusBar[0].opacity = 1;
+                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 20;
+                    }
+                    else if (PIPIHPwidth > 10) {
+                        PIPIStatusBar[0].opacity = 0.7;
+                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 100;
+                    }
+                    else if (PIPIHPwidth > 5) {
+                        PIPIStatusBar[0].opacity = 0.5;
+                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 300;
+                    }
+                    else {
+                        PIPIStatusBar[0].opacity = 0.3;
+                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
+                    }
+
+                    ////////////////////////////////////ATK////////////////////////////////////
+                    //ププの段階上昇
+                    if (PUPUATKwidth > 15) {
+                        PUPUStatusBar[1].opacity = 1;
+                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 20;
+                    }
+                    else if (PUPUATKwidth > 10) {
+                        PUPUStatusBar[1].opacity = 0.7;
+                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 100;
+                    }
+                    else if (PUPUATKwidth > 5) {
+                        PUPUStatusBar[1].opacity = 0.5;
+                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 300;
+                    }
+                    else {
+                        PUPUStatusBar[1].opacity = 0.3;
+                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
+                    }
+
+                    //ポポの段階上昇
+                    if (POPOATKwidth > 15) {
+                        POPOStatusBar[1].opacity = 1;
+                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 20;
+                    }
+                    else if (POPOATKwidth > 10) {
+                        POPOStatusBar[1].opacity = 0.7;
+                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 100;
+                    }
+                    else if (POPOATKwidth > 5) {
+                        POPOStatusBar[1].opacity = 0.5;
+                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 300;
+                    }
+                    else {
+                        POPOStatusBar[1].opacity = 0.3;
+                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
+                    }
+
+                    //ピピの段階上昇
+                    if (PIPIATKwidth > 15) {
+                        PIPIStatusBar[1].opacity = 1;
+                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 20;
+                    }
+                    else if (PIPIATKwidth > 10) {
+                        PIPIStatusBar[1].opacity = 0.7;
+                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 100;
+                    }
+                    else if (PIPIATKwidth > 5) {
+                        PIPIStatusBar[1].opacity = 0.5;
+                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 300;
+                    }
+                    else {
+                        PIPIStatusBar[1].opacity = 0.3;
+                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
+                    }
+
+                    ////////////////////////////////////SPEED////////////////////////////////////
+                    PUPUStatusBar[2].opacity = 1;
+                    PUPUStatusBar[2].width = PUPU.SPEED / MAXSPEED * 600;
+                    POPOStatusBar[2].opacity = 1;
+                    POPOStatusBar[2].width = POPO.SPEED / MAXSPEED * 600;
+                    PIPIStatusBar[2].opacity = 1;
+                    PIPIStatusBar[2].width = PIPI.SPEED / MAXSPEED * 600;
+                }
+                
 
                 degree += 1.5;
             });
@@ -660,9 +859,17 @@ window.onload = function ()
                         }
                     }
                 }
-                console.log(PUPU.Cost);
-
                 tapObj = null;
+            });
+
+            //コストの追加を行う
+            socket.on("PushAddCost", function (CostData) {
+                if(myPlayerID == CostData.PlayerID)
+                {
+                    console.log("GetCost : " + CostData.Cost);
+                    var AddCost = parseInt(CostData.Cost);
+                    haveCost += AddCost;
+                }
             });
 
             ////////描画////////
@@ -744,6 +951,9 @@ window.onload = function ()
                 scene.addChild(PUPUStatusBar[i]);
                 scene.addChild(POPOStatusBar[i]);
                 scene.addChild(PIPIStatusBar[i]);
+                scene.addChild(PUPUStatusIcon[i]);
+                scene.addChild(POPOStatusIcon[i]);
+                scene.addChild(PIPIStatusIcon[i]);
             }
             /////////////前面/////////////
 

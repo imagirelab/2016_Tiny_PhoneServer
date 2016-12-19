@@ -91,7 +91,12 @@ io.sockets.on('connection', function (socket) {
     socket.on("AddCost", function (CostData) {
         var Coststr = CostData.Cost.toString();
         var PlayerIDstr = CostData.PlayerID.toString();
+
         socket.broadcast.emit("PushAddCost", { Cost: Coststr, PlayerID: PlayerIDstr });
+
+        console.log("CostPushed");
+        console.log('PushCost : ' + Coststr);
+        console.log('PlayerID : ' + PlayerIDstr);
     });
 
     socket.on("MatchingEndRequest", function ()
@@ -136,6 +141,7 @@ io.sockets.on('connection', function (socket) {
         var Typestr = SpiritData.Type.toString();
         var PlayerIDstr = SpiritData.PlayerID.toString();
 
+        socket.broadcast.emit("SpiritPushed", { Type: Typestr, PlayerID: PlayerIDstr });
         socket.emit("SpiritPushed", { Type: Typestr, PlayerID: PlayerIDstr });
     });
 
