@@ -388,18 +388,43 @@ window.onload = function ()
             PUPUStatusBar[0] = new Sprite(600, 600);
             PUPUStatusBar[1] = new Sprite(600, 600);
             PUPUStatusBar[2] = new Sprite(600, 600);
+            PUPUStatusBar[3] = new Sprite(600, 600);
+            PUPUStatusBar[4] = new Sprite(600, 600);
+            PUPUStatusBar[5] = new Sprite(600, 600);
+            PUPUStatusBar[6] = new Sprite(600, 600);
+            PUPUStatusBar[7] = new Sprite(600, 600);
+            PUPUStatusBar[8] = new Sprite(600, 600);
             //イメージの画像読み込み
             PUPUStatusBar[0].image = core.assets['img/barhp.png'];
             PUPUStatusBar[1].image = core.assets['img/baratack.png'];
             PUPUStatusBar[2].image = core.assets['img/barspeed.png'];
+            PUPUStatusBar[3].image = core.assets['img/barhp.png'];
+            PUPUStatusBar[4].image = core.assets['img/baratack.png'];
+            PUPUStatusBar[5].image = core.assets['img/barspeed.png'];
+            PUPUStatusBar[6].image = core.assets['img/barhp.png'];
+            PUPUStatusBar[7].image = core.assets['img/baratack.png'];
+            PUPUStatusBar[8].image = core.assets['img/barspeed.png'];
+
             //スケールの設定
             PUPUStatusBar[0].scale(0.15, 0.15);
             PUPUStatusBar[1].scale(0.15, 0.15);
             PUPUStatusBar[2].scale(0.15, 0.15);
+            PUPUStatusBar[3].scale(0.15, 0.15);
+            PUPUStatusBar[4].scale(0.15, 0.15);
+            PUPUStatusBar[5].scale(0.15, 0.15);
+            PUPUStatusBar[6].scale(0.15, 0.15);
+            PUPUStatusBar[7].scale(0.15, 0.15);
+            PUPUStatusBar[8].scale(0.15, 0.15);
             //横幅(成長度合いを横幅で調整)
             PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
             PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
             PUPUStatusBar[2].width = PUPU.SPEED / MAXSPEED * 600;
+            PUPUStatusBar[3].width = 0;
+            PUPUStatusBar[4].width = 0;
+            PUPUStatusBar[5].width = 0;
+            PUPUStatusBar[6].width = 0;
+            PUPUStatusBar[7].width = 0;
+            PUPUStatusBar[8].width = 0;
             //座標設定
             PUPUStatusBar[0].originX = 2200;
             PUPUStatusBar[0].originY = 300;
@@ -407,6 +432,18 @@ window.onload = function ()
             PUPUStatusBar[1].originY = 400;
             PUPUStatusBar[2].originX = 2200;
             PUPUStatusBar[2].originY = 500;
+            PUPUStatusBar[3].originX = 2200;
+            PUPUStatusBar[3].originY = 300;
+            PUPUStatusBar[4].originX = 2200;
+            PUPUStatusBar[4].originY = 400;
+            PUPUStatusBar[5].originX = 2200;
+            PUPUStatusBar[5].originY = 500;
+            PUPUStatusBar[6].originX = 2200;
+            PUPUStatusBar[6].originY = 300;
+            PUPUStatusBar[7].originX = 2200;
+            PUPUStatusBar[7].originY = 400;
+            PUPUStatusBar[8].originX = 2200;
+            PUPUStatusBar[8].originY = 500;
 
             //ステータスのアイコン
             var PUPUStatusIcon = new Array();
@@ -436,18 +473,42 @@ window.onload = function ()
             POPOStatusBar[0] = new Sprite(600, 600);
             POPOStatusBar[1] = new Sprite(600, 600);
             POPOStatusBar[2] = new Sprite(600, 600);
+            POPOStatusBar[3] = new Sprite(600, 600);
+            POPOStatusBar[4] = new Sprite(600, 600);
+            POPOStatusBar[5] = new Sprite(600, 600);
+            POPOStatusBar[6] = new Sprite(600, 600);
+            POPOStatusBar[7] = new Sprite(600, 600);
+            POPOStatusBar[8] = new Sprite(600, 600);
             //イメージの画像読み込み
             POPOStatusBar[0].image = core.assets['img/barhp.png'];
             POPOStatusBar[1].image = core.assets['img/baratack.png'];
             POPOStatusBar[2].image = core.assets['img/barspeed.png'];
+            POPOStatusBar[3].image = core.assets['img/barhp.png'];
+            POPOStatusBar[4].image = core.assets['img/baratack.png'];
+            POPOStatusBar[5].image = core.assets['img/barspeed.png'];
+            POPOStatusBar[6].image = core.assets['img/barhp.png'];
+            POPOStatusBar[7].image = core.assets['img/baratack.png'];
+            POPOStatusBar[8].image = core.assets['img/barspeed.png'];
             //スケールの設定
             POPOStatusBar[0].scale(0.15, 0.15);
             POPOStatusBar[1].scale(0.15, 0.15);
             POPOStatusBar[2].scale(0.15, 0.15);
+            POPOStatusBar[3].scale(0.15, 0.15);
+            POPOStatusBar[4].scale(0.15, 0.15);
+            POPOStatusBar[5].scale(0.15, 0.15);
+            POPOStatusBar[6].scale(0.15, 0.15);
+            POPOStatusBar[7].scale(0.15, 0.15);
+            POPOStatusBar[8].scale(0.15, 0.15);
             //横幅(成長度合いを横幅で調整)
             POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
             POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
             POPOStatusBar[2].width = POPO.SPEED / MAXSPEED * 600;
+            POPOStatusBar[3].width = 0;
+            POPOStatusBar[4].width = 0;
+            POPOStatusBar[5].width = 0;
+            POPOStatusBar[6].width = 0;
+            POPOStatusBar[7].width = 0;
+            POPOStatusBar[8].width = 0;
             //座標設定
             POPOStatusBar[0].originX = 2200;
             POPOStatusBar[0].originY = 1000;
@@ -455,6 +516,18 @@ window.onload = function ()
             POPOStatusBar[1].originY = 1100;
             POPOStatusBar[2].originX = 2200;
             POPOStatusBar[2].originY = 1200;
+            POPOStatusBar[3].originX = 2200;
+            POPOStatusBar[3].originY = 1000;
+            POPOStatusBar[4].originX = 2200;
+            POPOStatusBar[4].originY = 1100;
+            POPOStatusBar[5].originX = 2200;
+            POPOStatusBar[5].originY = 1200;
+            POPOStatusBar[6].originX = 2200;
+            POPOStatusBar[6].originY = 1000;
+            POPOStatusBar[7].originX = 2200;
+            POPOStatusBar[7].originY = 1100;
+            POPOStatusBar[8].originX = 2200;
+            POPOStatusBar[8].originY = 1200;
 
             //ステータスのアイコン
             var POPOStatusIcon = new Array();
@@ -484,18 +557,42 @@ window.onload = function ()
             PIPIStatusBar[0] = new Sprite(600, 600);
             PIPIStatusBar[1] = new Sprite(600, 600);
             PIPIStatusBar[2] = new Sprite(600, 600);
+            PIPIStatusBar[3] = new Sprite(600, 600);
+            PIPIStatusBar[4] = new Sprite(600, 600);
+            PIPIStatusBar[5] = new Sprite(600, 600);
+            PIPIStatusBar[6] = new Sprite(600, 600);
+            PIPIStatusBar[7] = new Sprite(600, 600);
+            PIPIStatusBar[8] = new Sprite(600, 600);
             //イメージの画像読み込み
             PIPIStatusBar[0].image = core.assets['img/barhp.png'];
             PIPIStatusBar[1].image = core.assets['img/baratack.png'];
             PIPIStatusBar[2].image = core.assets['img/barspeed.png'];
+            PIPIStatusBar[3].image = core.assets['img/barhp.png'];
+            PIPIStatusBar[4].image = core.assets['img/baratack.png'];
+            PIPIStatusBar[5].image = core.assets['img/barspeed.png'];
+            PIPIStatusBar[6].image = core.assets['img/barhp.png'];
+            PIPIStatusBar[7].image = core.assets['img/baratack.png'];
+            PIPIStatusBar[8].image = core.assets['img/barspeed.png'];
             //スケールの設定
             PIPIStatusBar[0].scale(0.15, 0.15);
             PIPIStatusBar[1].scale(0.15, 0.15);
             PIPIStatusBar[2].scale(0.15, 0.15);
+            PIPIStatusBar[3].scale(0.15, 0.15);
+            PIPIStatusBar[4].scale(0.15, 0.15);
+            PIPIStatusBar[5].scale(0.15, 0.15);
+            PIPIStatusBar[6].scale(0.15, 0.15);
+            PIPIStatusBar[7].scale(0.15, 0.15);
+            PIPIStatusBar[8].scale(0.15, 0.15);
             //横幅(成長度合いを横幅で調整)
             PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
             PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
             PIPIStatusBar[2].width = PIPI.SPEED / MAXSPEED * 600;
+            PIPIStatusBar[3].width = 0;
+            PIPIStatusBar[4].width = 0;
+            PIPIStatusBar[5].width = 0;
+            PIPIStatusBar[6].width = 0;
+            PIPIStatusBar[7].width = 0;
+            PIPIStatusBar[8].width = 0;
             //座標設定
             PIPIStatusBar[0].originX = 2200;
             PIPIStatusBar[0].originY = 1700;
@@ -503,6 +600,18 @@ window.onload = function ()
             PIPIStatusBar[1].originY = 1800;
             PIPIStatusBar[2].originX = 2200;
             PIPIStatusBar[2].originY = 1900;
+            PIPIStatusBar[3].originX = 2200;
+            PIPIStatusBar[3].originY = 1700;
+            PIPIStatusBar[4].originX = 2200;
+            PIPIStatusBar[4].originY = 1800;
+            PIPIStatusBar[5].originX = 2200;
+            PIPIStatusBar[5].originY = 1900;
+            PIPIStatusBar[6].originX = 2200;
+            PIPIStatusBar[6].originY = 1700;
+            PIPIStatusBar[7].originX = 2200;
+            PIPIStatusBar[7].originY = 1800;
+            PIPIStatusBar[8].originX = 2200;
+            PIPIStatusBar[8].originY = 1900;
 
             //ステータスのアイコン
             var PIPIStatusIcon = new Array();
@@ -583,111 +692,123 @@ window.onload = function ()
 
                     ////////////////////////////////////HP////////////////////////////////////
                     //ププの段階上昇
-                    if (PUPUHPwidth > 15) {
-                        PUPUStatusBar[0].opacity = 1;
-                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 20;
-                    }
-                    else if (PUPUHPwidth > 10) {
-                        PUPUStatusBar[0].opacity = 0.7;
-                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 100;
+                    if (PUPUHPwidth > 10) {
+                        PUPUStatusBar[6].opacity = 1;
+                        PUPUStatusBar[6].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 20;
+                        PUPUStatusBar[3].opacity = 0.5;
+                        PUPUStatusBar[3].width = 3000;
+                        PUPUStatusBar[0].opacity = 0.2;
+                        PUPUStatusBar[0].width = 3000;
                     }
                     else if (PUPUHPwidth > 5) {
-                        PUPUStatusBar[0].opacity = 0.5;
-                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 300;
+                        PUPUStatusBar[3].opacity = 0.5;
+                        PUPUStatusBar[3].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 50;
+                        PUPUStatusBar[0].opacity = 0.2;
+                        PUPUStatusBar[0].width = 3000;
                     }
                     else {
-                        PUPUStatusBar[0].opacity = 0.3;
+                        PUPUStatusBar[0].opacity = 0.2;
                         PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
                     }
 
                     //ポポの段階上昇
-                    if (POPOHPwidth > 15) {
-                        POPOStatusBar[0].opacity = 1;
-                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 20;
-                    }
-                    else if (POPOHPwidth > 10) {
-                        POPOStatusBar[0].opacity = 0.7;
-                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 100;
+                    if (POPOHPwidth > 10) {
+                        POPOStatusBar[6].opacity = 1;
+                        POPOStatusBar[6].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 20;
+                        POPOStatusBar[3].opacity = 0.5;
+                        POPOStatusBar[3].width = 3000;
+                        POPOStatusBar[0].opacity = 0.2;
+                        POPOStatusBar[0].width = 3000;
                     }
                     else if (POPOHPwidth > 5) {
-                        POPOStatusBar[0].opacity = 0.5;
-                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 300;
+                        POPOStatusBar[3].opacity = 0.5;
+                        POPOStatusBar[3].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 50;
+                        POPOStatusBar[0].opacity = 0.2;
+                        POPOStatusBar[0].width = 3000;
                     }
                     else {
-                        POPOStatusBar[0].opacity = 0.3;
+                        POPOStatusBar[0].opacity = 0.2;
                         POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
                     }
 
                     //ピピの段階上昇
-                    if (PIPIHPwidth > 15) {
-                        PIPIStatusBar[0].opacity = 1;
-                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 20;
-                    }
-                    else if (PIPIHPwidth > 10) {
-                        PIPIStatusBar[0].opacity = 0.7;
-                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 100;
+                    if (PIPIHPwidth > 10) {
+                        PIPIStatusBar[6].opacity = 1;
+                        PIPIStatusBar[6].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 20;
+                        PIPIStatusBar[3].opacity = 0.5;
+                        PIPIStatusBar[3].width = 3000;
+                        PIPIStatusBar[0].opacity = 0.2;
+                        PIPIStatusBar[0].width = 3000;
                     }
                     else if (PIPIHPwidth > 5) {
-                        PIPIStatusBar[0].opacity = 0.5;
-                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 300;
+                        PIPIStatusBar[3].opacity = 0.5;
+                        PIPIStatusBar[3].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 50;
+                        PIPIStatusBar[0].opacity = 0.2;
+                        PIPIStatusBar[0].width = 3000;
                     }
                     else {
-                        PIPIStatusBar[0].opacity = 0.3;
+                        PIPIStatusBar[0].opacity = 0.2;
                         PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
                     }
 
                     ////////////////////////////////////ATK////////////////////////////////////
                     //ププの段階上昇
-                    if (PUPUATKwidth > 15) {
-                        PUPUStatusBar[1].opacity = 1;
-                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 20;
-                    }
-                    else if (PUPUATKwidth > 10) {
-                        PUPUStatusBar[1].opacity = 0.7;
-                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 100;
+                    if (PUPUATKwidth > 10) {
+                        PUPUStatusBar[7].opacity = 1;
+                        PUPUStatusBar[7].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 20;
+                        PUPUStatusBar[4].opacity = 0.5;
+                        PUPUStatusBar[4].width = 3000;
+                        PUPUStatusBar[1].opacity = 0.2;
+                        PUPUStatusBar[1].width = 3000;
                     }
                     else if (PUPUATKwidth > 5) {
-                        PUPUStatusBar[1].opacity = 0.5;
-                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 300;
+                        PUPUStatusBar[4].opacity = 0.5;
+                        PUPUStatusBar[4].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 50;
+                        PUPUStatusBar[1].opacity = 0.2;
+                        PUPUStatusBar[1].width = 0;
                     }
                     else {
-                        PUPUStatusBar[1].opacity = 0.3;
+                        PUPUStatusBar[1].opacity = 0.2;
                         PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
                     }
 
                     //ポポの段階上昇
-                    if (POPOATKwidth > 15) {
-                        POPOStatusBar[1].opacity = 1;
-                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 20;
-                    }
-                    else if (POPOATKwidth > 10) {
-                        POPOStatusBar[1].opacity = 0.7;
-                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 100;
+                    if (POPOATKwidth > 10) {
+                        POPOStatusBar[7].opacity = 1;
+                        POPOStatusBar[7].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 20;
+                        POPOStatusBar[4].opacity = 0.5;
+                        POPOStatusBar[4].width = 3000;
+                        POPOStatusBar[1].opacity = 0.2;
+                        POPOStatusBar[1].width = 3000;
                     }
                     else if (POPOATKwidth > 5) {
-                        POPOStatusBar[1].opacity = 0.5;
-                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 300;
+                        POPOStatusBar[4].opacity = 0.5;
+                        POPOStatusBar[4].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 50;
+                        POPOStatusBar[1].opacity = 0.2;
+                        POPOStatusBar[1].width = 3000;
                     }
                     else {
-                        POPOStatusBar[1].opacity = 0.3;
+                        POPOStatusBar[1].opacity = 0.2;
                         POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
                     }
 
                     //ピピの段階上昇
-                    if (PIPIATKwidth > 15) {
-                        PIPIStatusBar[1].opacity = 1;
-                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 20;
-                    }
-                    else if (PIPIATKwidth > 10) {
-                        PIPIStatusBar[1].opacity = 0.7;
-                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 100;
+                    if (PIPIATKwidth > 10) {
+                        PIPIStatusBar[7].opacity = 1;
+                        PIPIStatusBar[7].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 20;
+                        PIPIStatusBar[4].opacity = 0.5;
+                        PIPIStatusBar[4].width = 3000;
+                        PIPIStatusBar[1].opacity = 0.2;
+                        PIPIStatusBar[1].width = 3000;
                     }
                     else if (PIPIATKwidth > 5) {
-                        PIPIStatusBar[1].opacity = 0.5;
-                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 300;
+                        PIPIStatusBar[4].opacity = 0.5;
+                        PIPIStatusBar[4].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 50;
+                        PIPIStatusBar[1].opacity = 0.2;
+                        PIPIStatusBar[1].width = 3000;
                     }
                     else {
-                        PIPIStatusBar[1].opacity = 0.3;
+                        PIPIStatusBar[1].opacity = 0.2;
                         PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
                     }
 
