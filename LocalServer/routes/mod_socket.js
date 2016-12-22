@@ -53,6 +53,9 @@ server.listen(process.env.PORT || 5555);//5555番ポートで起動
 //プレイヤーID管理
 var PlayerID = 0;
 
+//秒間取得コスト
+var secondPerCost = 25;
+
 //接続確立時の処理
 io.sockets.on('connection', function (socket) {
     // この中でデータのやり取りを行う
@@ -87,18 +90,13 @@ io.sockets.on('connection', function (socket) {
     socket.on("GameEndRequest", function () {
         socket.broadcast.emit("PushGameEndRequest");
     });
-    //コストの送信
-    socket.on("AddCost", function (CostData) {
-        var Coststr = CostData.Cost.toString();
-        var PlayerIDstr = CostData.PlayerID.toString();
 
-        socket.broadcast.emit("PushAddCost", { Cost: Coststr, PlayerID: PlayerIDstr });
+    //一定間隔でコストを送信
+    setInterval(function () {
+        socket.broadcast.emit("PushSecondCost", {Cost: secondPerCost});
+    }, 1500);
 
-        console.log("CostPushed");
-        console.log('PushCost : ' + Coststr);
-        console.log('PlayerID : ' + PlayerIDstr);
-    });
-
+    //マッチング終了を送信
     socket.on("MatchingEndRequest", function ()
     {
         socket.broadcast.emit("PushMatchingEnd");
@@ -118,31 +116,43 @@ io.sockets.on('connection', function (socket) {
 
     //送られたデーモンのデータ送信
     socket.on("DemonPush", function (DemonData) {
-        console.log('DemonPushed');
-        console.log('Data : ' + DemonData.Type);
-        console.log('Direction : ' + DemonData.Direction);
-        console.log('Level : ' + DemonData.Level);
-        console.log('PlayerID : ' + DemonData.PlayerID);
-
         var DemonTypestr = DemonData.Type.toString();
         var Directionstr = DemonData.Direction.toString();
         var PlayerIDstr = DemonData.PlayerID.toString();
         var Levelstr = DemonData.Level.toString();
 
         socket.broadcast.emit("DemonPushed", { Type: DemonTypestr, Direction: Directionstr, Level: Levelstr, PlayerID: PlayerIDstr });
+
+        console.log('DemonPushed');
+        console.log('Data : ' + DemonData.Type);
+        console.log('Direction : ' + DemonData.Direction);
+        console.log('Level : ' + DemonData.Level);
+        console.log('PlayerID : ' + DemonData.PlayerID);
     });
 
     //魂が送られた時のデータ送信
     socket.on("SpiritPush", function (SpiritData) {
-        console.log("SpiritPushed");
-        console.log('Type : ' + SpiritData.Type);
-        console.log('PlayerID : ' + SpiritData.PlayerID);
-
         var Typestr = SpiritData.Type.toString();
         var PlayerIDstr = SpiritData.PlayerID.toString();
 
         socket.broadcast.emit("SpiritPushed", { Type: Typestr, PlayerID: PlayerIDstr });
         socket.emit("SpiritPushed", { Type: Typestr, PlayerID: PlayerIDstr });
+
+        console.log("SpiritPushed");
+        console.log('Type : ' + SpiritData.Type);
+        console.log('PlayerID : ' + SpiritData.PlayerID);
+    });
+
+    //コストの送信
+    socket.on("AddCost", function (CostData) {
+        var Coststr = CostData.Cost.toString();
+        var PlayerIDstr = CostData.PlayerID.toString();
+
+        socket.broadcast.emit("PushAddCost", { Cost: Coststr, PlayerID: PlayerIDstr });
+
+        console.log("CostPushed");
+        console.log('PushCost : ' + Coststr);
+        console.log('PlayerID : ' + PlayerIDstr);
     });
 
 });

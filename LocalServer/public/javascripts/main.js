@@ -1,6 +1,6 @@
 //var socket = io.connect('https://safe-reef-35714.herokuapp.com/');
 var socket = io.connect('ws://192.168.11.250:5555');
-//var socket = io.connect('http://localhost:5555');
+//var socket = io.connect('ws://localhost:5555');
 
 var myPlayerID = 0;
 
@@ -116,12 +116,15 @@ window.onload = function ()
     core.preload('matchingUI/setumei6.png');
     core.preload('matchingUI/setumei7.png');
     core.preload('matchingUI/setumei8.png');
-    core.preload('img/baratack.png');
-    core.preload('img/barhp.png');
-    core.preload('img/barspeed.png');
-    core.preload('img/speed.png');
-    core.preload('img/atack.png');
-    core.preload('img/life.png');
+    core.preload('img/baratack1.png');
+    core.preload('img/baratack2.png');
+    core.preload('img/baratack3.png');
+    core.preload('img/barhp1.png');
+    core.preload('img/barhp2.png');
+    core.preload('img/barhp3.png');
+    core.preload('img/barspeed1.png');
+    core.preload('img/barspeed2.png');
+    core.preload('img/barspeed3.png');
 
     //スピリット
     core.preload('img/pupu_soul.png');
@@ -132,7 +135,7 @@ window.onload = function ()
     core.preload('img/sumahotatti.png');
 
     //fpsの設定
-    core.fps = 30;
+    core.fps = 24;
 
     core.onload = function ()
     {
@@ -178,8 +181,8 @@ window.onload = function ()
             scene.addEventListener(Event.TOUCH_START, function ()
             {
                 //現在表示しているシーンをゲームシーンに置き換えます
-                //core.replaceScene(MatchingScene());
                 core.replaceScene(MainScene());
+                //core.replaceScene(MatchingScene());
             });            
 
             ////////描画////////
@@ -224,8 +227,7 @@ window.onload = function ()
                 }
             });
 
-            //プレイヤーIDのセット
-            socket.on("PushMatchingEnd", function () {
+            socket.on("MatchingEndRequest", function () {
                 //現在表示しているシーンをゲームシーンに置き換えます
                 core.replaceScene(MainScene());
             });
@@ -382,269 +384,252 @@ window.onload = function ()
                 PIPIcostFont[i].frame = 0;
             }
 
-            //ステータスバー部分
-            var PUPUStatusBar = new Array();
-            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
-            PUPUStatusBar[0] = new Sprite(600, 600);
-            PUPUStatusBar[1] = new Sprite(600, 600);
-            PUPUStatusBar[2] = new Sprite(600, 600);
-            PUPUStatusBar[3] = new Sprite(600, 600);
-            PUPUStatusBar[4] = new Sprite(600, 600);
-            PUPUStatusBar[5] = new Sprite(600, 600);
-            PUPUStatusBar[6] = new Sprite(600, 600);
-            PUPUStatusBar[7] = new Sprite(600, 600);
-            PUPUStatusBar[8] = new Sprite(600, 600);
-            //イメージの画像読み込み
-            PUPUStatusBar[0].image = core.assets['img/barhp.png'];
-            PUPUStatusBar[1].image = core.assets['img/baratack.png'];
-            PUPUStatusBar[2].image = core.assets['img/barspeed.png'];
-            PUPUStatusBar[3].image = core.assets['img/barhp.png'];
-            PUPUStatusBar[4].image = core.assets['img/baratack.png'];
-            PUPUStatusBar[5].image = core.assets['img/barspeed.png'];
-            PUPUStatusBar[6].image = core.assets['img/barhp.png'];
-            PUPUStatusBar[7].image = core.assets['img/baratack.png'];
-            PUPUStatusBar[8].image = core.assets['img/barspeed.png'];
-
-            //スケールの設定
-            PUPUStatusBar[0].scale(0.15, 0.15);
-            PUPUStatusBar[1].scale(0.15, 0.15);
-            PUPUStatusBar[2].scale(0.15, 0.15);
-            PUPUStatusBar[3].scale(0.15, 0.15);
-            PUPUStatusBar[4].scale(0.15, 0.15);
-            PUPUStatusBar[5].scale(0.15, 0.15);
-            PUPUStatusBar[6].scale(0.15, 0.15);
-            PUPUStatusBar[7].scale(0.15, 0.15);
-            PUPUStatusBar[8].scale(0.15, 0.15);
-            //横幅(成長度合いを横幅で調整)
-            PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
-            PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
-            PUPUStatusBar[2].width = PUPU.SPEED / MAXSPEED * 600;
-            PUPUStatusBar[3].width = 0;
-            PUPUStatusBar[4].width = 0;
-            PUPUStatusBar[5].width = 0;
-            PUPUStatusBar[6].width = 0;
-            PUPUStatusBar[7].width = 0;
-            PUPUStatusBar[8].width = 0;
-            //座標設定
-            PUPUStatusBar[0].originX = 2200;
-            PUPUStatusBar[0].originY = 300;
-            PUPUStatusBar[1].originX = 2200;
-            PUPUStatusBar[1].originY = 400;
-            PUPUStatusBar[2].originX = 2200;
-            PUPUStatusBar[2].originY = 500;
-            PUPUStatusBar[3].originX = 2200;
-            PUPUStatusBar[3].originY = 300;
-            PUPUStatusBar[4].originX = 2200;
-            PUPUStatusBar[4].originY = 400;
-            PUPUStatusBar[5].originX = 2200;
-            PUPUStatusBar[5].originY = 500;
-            PUPUStatusBar[6].originX = 2200;
-            PUPUStatusBar[6].originY = 300;
-            PUPUStatusBar[7].originX = 2200;
-            PUPUStatusBar[7].originY = 400;
-            PUPUStatusBar[8].originX = 2200;
-            PUPUStatusBar[8].originY = 500;
-
-            //ステータスのアイコン
-            var PUPUStatusIcon = new Array();
-            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
-            PUPUStatusIcon[0] = new Sprite(600, 600);
-            PUPUStatusIcon[1] = new Sprite(600, 600);
-            PUPUStatusIcon[2] = new Sprite(600, 600);
-            //イメージの画像読み込み
-            PUPUStatusIcon[0].image = core.assets['img/life.png'];
-            PUPUStatusIcon[1].image = core.assets['img/atack.png'];
-            PUPUStatusIcon[2].image = core.assets['img/speed.png'];
-            //スケールの設定
-            PUPUStatusIcon[0].scale(0.15, 0.15);
-            PUPUStatusIcon[1].scale(0.15, 0.15);
-            PUPUStatusIcon[2].scale(0.15, 0.15);
-            //座標設定
-            PUPUStatusIcon[0].originX = 2100;
-            PUPUStatusIcon[0].originY = 300;
-            PUPUStatusIcon[1].originX = 2100;
-            PUPUStatusIcon[1].originY = 400;
-            PUPUStatusIcon[2].originX = 2100;
-            PUPUStatusIcon[2].originY = 500;
+            var strengthInterval = 3;
 
             //ステータスバー部分
-            var POPOStatusBar = new Array();
-            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
-            POPOStatusBar[0] = new Sprite(600, 600);
-            POPOStatusBar[1] = new Sprite(600, 600);
-            POPOStatusBar[2] = new Sprite(600, 600);
-            POPOStatusBar[3] = new Sprite(600, 600);
-            POPOStatusBar[4] = new Sprite(600, 600);
-            POPOStatusBar[5] = new Sprite(600, 600);
-            POPOStatusBar[6] = new Sprite(600, 600);
-            POPOStatusBar[7] = new Sprite(600, 600);
-            POPOStatusBar[8] = new Sprite(600, 600);
-            //イメージの画像読み込み
-            POPOStatusBar[0].image = core.assets['img/barhp.png'];
-            POPOStatusBar[1].image = core.assets['img/baratack.png'];
-            POPOStatusBar[2].image = core.assets['img/barspeed.png'];
-            POPOStatusBar[3].image = core.assets['img/barhp.png'];
-            POPOStatusBar[4].image = core.assets['img/baratack.png'];
-            POPOStatusBar[5].image = core.assets['img/barspeed.png'];
-            POPOStatusBar[6].image = core.assets['img/barhp.png'];
-            POPOStatusBar[7].image = core.assets['img/baratack.png'];
-            POPOStatusBar[8].image = core.assets['img/barspeed.png'];
-            //スケールの設定
-            POPOStatusBar[0].scale(0.15, 0.15);
-            POPOStatusBar[1].scale(0.15, 0.15);
-            POPOStatusBar[2].scale(0.15, 0.15);
-            POPOStatusBar[3].scale(0.15, 0.15);
-            POPOStatusBar[4].scale(0.15, 0.15);
-            POPOStatusBar[5].scale(0.15, 0.15);
-            POPOStatusBar[6].scale(0.15, 0.15);
-            POPOStatusBar[7].scale(0.15, 0.15);
-            POPOStatusBar[8].scale(0.15, 0.15);
-            //横幅(成長度合いを横幅で調整)
-            POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
-            POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
-            POPOStatusBar[2].width = POPO.SPEED / MAXSPEED * 600;
-            POPOStatusBar[3].width = 0;
-            POPOStatusBar[4].width = 0;
-            POPOStatusBar[5].width = 0;
-            POPOStatusBar[6].width = 0;
-            POPOStatusBar[7].width = 0;
-            POPOStatusBar[8].width = 0;
-            //座標設定
-            POPOStatusBar[0].originX = 2200;
-            POPOStatusBar[0].originY = 1000;
-            POPOStatusBar[1].originX = 2200;
-            POPOStatusBar[1].originY = 1100;
-            POPOStatusBar[2].originX = 2200;
-            POPOStatusBar[2].originY = 1200;
-            POPOStatusBar[3].originX = 2200;
-            POPOStatusBar[3].originY = 1000;
-            POPOStatusBar[4].originX = 2200;
-            POPOStatusBar[4].originY = 1100;
-            POPOStatusBar[5].originX = 2200;
-            POPOStatusBar[5].originY = 1200;
-            POPOStatusBar[6].originX = 2200;
-            POPOStatusBar[6].originY = 1000;
-            POPOStatusBar[7].originX = 2200;
-            POPOStatusBar[7].originY = 1100;
-            POPOStatusBar[8].originX = 2200;
-            POPOStatusBar[8].originY = 1200;
+            var PUPUStatusBarHP = new Array();
+            var PUPUStatusBarATK = new Array();
+            var PUPUStatusBarSPEED = new Array();
 
-            //ステータスのアイコン
-            var POPOStatusIcon = new Array();
-            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
-            POPOStatusIcon[0] = new Sprite(600, 600);
-            POPOStatusIcon[1] = new Sprite(600, 600);
-            POPOStatusIcon[2] = new Sprite(600, 600);
-            //イメージの画像読み込み
-            POPOStatusIcon[0].image = core.assets['img/life.png'];
-            POPOStatusIcon[1].image = core.assets['img/atack.png'];
-            POPOStatusIcon[2].image = core.assets['img/speed.png'];
-            //スケールの設定
-            POPOStatusIcon[0].scale(0.15, 0.15);
-            POPOStatusIcon[1].scale(0.15, 0.15);
-            POPOStatusIcon[2].scale(0.15, 0.15);
-            //座標設定
-            POPOStatusIcon[0].originX = 2100;
-            POPOStatusIcon[0].originY = 1000;
-            POPOStatusIcon[1].originX = 2100;
-            POPOStatusIcon[1].originY = 1100;
-            POPOStatusIcon[2].originX = 2100;
-            POPOStatusIcon[2].originY = 1200;
+            //ププHPの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                PUPUStatusBarHP[i] = new Sprite(600, 600);
+                switch(i)
+                {
+                    case 0:
+                        PUPUStatusBarHP[i].image = core.assets['img/barhp1.png'];
+                        PUPUStatusBarHP[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        PUPUStatusBarHP[i].image = core.assets['img/barhp2.png'];
+                        PUPUStatusBarHP[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        PUPUStatusBarHP[i].image = core.assets['img/barhp3.png'];
+                        PUPUStatusBarHP[i].opacity = 1;
+                        break;
+                }
+                PUPUStatusBarHP[i].scale(0.15, 0.15);
+                PUPUStatusBarHP[i].originX = 2200;
+                PUPUStatusBarHP[i].originY = 300;
+            }
+
+            //ププATKの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                PUPUStatusBarATK[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        PUPUStatusBarATK[i].image = core.assets['img/baratack1.png'];
+                        PUPUStatusBarATK[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        PUPUStatusBarATK[i].image = core.assets['img/baratack2.png'];
+                        PUPUStatusBarATK[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        PUPUStatusBarATK[i].image = core.assets['img/baratack3.png'];
+                        PUPUStatusBarATK[i].opacity = 1;
+                        break;
+                }
+                PUPUStatusBarATK[i].scale(0.15, 0.15);
+                PUPUStatusBarATK[i].originX = 2200;
+                PUPUStatusBarATK[i].originY = 400;
+            }
+
+            //ププSPEEDの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                PUPUStatusBarSPEED[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        PUPUStatusBarSPEED[i].image = core.assets['img/barspeed1.png'];
+                        PUPUStatusBarSPEED[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        PUPUStatusBarSPEED[i].image = core.assets['img/barspeed2.png'];
+                        PUPUStatusBarSPEED[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        PUPUStatusBarSPEED[i].image = core.assets['img/barspeed3.png'];
+                        PUPUStatusBarSPEED[i].opacity = 1;
+                        break;
+                }
+                PUPUStatusBarSPEED[i].scale(0.15, 0.15);
+                PUPUStatusBarSPEED[i].width = PUPU.SPEED / MAXSPEED * 600;
+                PUPUStatusBarSPEED[i].originX = 2200;
+                PUPUStatusBarSPEED[i].originY = 500;
+            }
 
             //ステータスバー部分
-            var PIPIStatusBar = new Array();
-            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
-            PIPIStatusBar[0] = new Sprite(600, 600);
-            PIPIStatusBar[1] = new Sprite(600, 600);
-            PIPIStatusBar[2] = new Sprite(600, 600);
-            PIPIStatusBar[3] = new Sprite(600, 600);
-            PIPIStatusBar[4] = new Sprite(600, 600);
-            PIPIStatusBar[5] = new Sprite(600, 600);
-            PIPIStatusBar[6] = new Sprite(600, 600);
-            PIPIStatusBar[7] = new Sprite(600, 600);
-            PIPIStatusBar[8] = new Sprite(600, 600);
-            //イメージの画像読み込み
-            PIPIStatusBar[0].image = core.assets['img/barhp.png'];
-            PIPIStatusBar[1].image = core.assets['img/baratack.png'];
-            PIPIStatusBar[2].image = core.assets['img/barspeed.png'];
-            PIPIStatusBar[3].image = core.assets['img/barhp.png'];
-            PIPIStatusBar[4].image = core.assets['img/baratack.png'];
-            PIPIStatusBar[5].image = core.assets['img/barspeed.png'];
-            PIPIStatusBar[6].image = core.assets['img/barhp.png'];
-            PIPIStatusBar[7].image = core.assets['img/baratack.png'];
-            PIPIStatusBar[8].image = core.assets['img/barspeed.png'];
-            //スケールの設定
-            PIPIStatusBar[0].scale(0.15, 0.15);
-            PIPIStatusBar[1].scale(0.15, 0.15);
-            PIPIStatusBar[2].scale(0.15, 0.15);
-            PIPIStatusBar[3].scale(0.15, 0.15);
-            PIPIStatusBar[4].scale(0.15, 0.15);
-            PIPIStatusBar[5].scale(0.15, 0.15);
-            PIPIStatusBar[6].scale(0.15, 0.15);
-            PIPIStatusBar[7].scale(0.15, 0.15);
-            PIPIStatusBar[8].scale(0.15, 0.15);
-            //横幅(成長度合いを横幅で調整)
-            PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
-            PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
-            PIPIStatusBar[2].width = PIPI.SPEED / MAXSPEED * 600;
-            PIPIStatusBar[3].width = 0;
-            PIPIStatusBar[4].width = 0;
-            PIPIStatusBar[5].width = 0;
-            PIPIStatusBar[6].width = 0;
-            PIPIStatusBar[7].width = 0;
-            PIPIStatusBar[8].width = 0;
-            //座標設定
-            PIPIStatusBar[0].originX = 2200;
-            PIPIStatusBar[0].originY = 1700;
-            PIPIStatusBar[1].originX = 2200;
-            PIPIStatusBar[1].originY = 1800;
-            PIPIStatusBar[2].originX = 2200;
-            PIPIStatusBar[2].originY = 1900;
-            PIPIStatusBar[3].originX = 2200;
-            PIPIStatusBar[3].originY = 1700;
-            PIPIStatusBar[4].originX = 2200;
-            PIPIStatusBar[4].originY = 1800;
-            PIPIStatusBar[5].originX = 2200;
-            PIPIStatusBar[5].originY = 1900;
-            PIPIStatusBar[6].originX = 2200;
-            PIPIStatusBar[6].originY = 1700;
-            PIPIStatusBar[7].originX = 2200;
-            PIPIStatusBar[7].originY = 1800;
-            PIPIStatusBar[8].originX = 2200;
-            PIPIStatusBar[8].originY = 1900;
+            var POPOStatusBarHP = new Array();
+            var POPOStatusBarATK = new Array();
+            var POPOStatusBarSPEED = new Array();
 
-            //ステータスのアイコン
-            var PIPIStatusIcon = new Array();
-            //スプライトサイズ読み込み(HP:ATK:SPEEDの順)
-            PIPIStatusIcon[0] = new Sprite(600, 600);
-            PIPIStatusIcon[1] = new Sprite(600, 600);
-            PIPIStatusIcon[2] = new Sprite(600, 600);
-            //イメージの画像読み込み
-            PIPIStatusIcon[0].image = core.assets['img/life.png'];
-            PIPIStatusIcon[1].image = core.assets['img/atack.png'];
-            PIPIStatusIcon[2].image = core.assets['img/speed.png'];
-            //スケールの設定
-            PIPIStatusIcon[0].scale(0.15, 0.15);
-            PIPIStatusIcon[1].scale(0.15, 0.15);
-            PIPIStatusIcon[2].scale(0.15, 0.15);
-            //座標設定
-            PIPIStatusIcon[0].originX = 2100;
-            PIPIStatusIcon[0].originY = 1700;
-            PIPIStatusIcon[1].originX = 2100;
-            PIPIStatusIcon[1].originY = 1800;
-            PIPIStatusIcon[2].originX = 2100;
-            PIPIStatusIcon[2].originY = 1900;
+            //ポポHPの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                POPOStatusBarHP[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        POPOStatusBarHP[i].image = core.assets['img/barhp1.png'];
+                        POPOStatusBarHP[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        POPOStatusBarHP[i].image = core.assets['img/barhp2.png'];
+                        POPOStatusBarHP[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        POPOStatusBarHP[i].image = core.assets['img/barhp3.png'];
+                        POPOStatusBarHP[i].opacity = 1;
+                        break;
+                }
+                POPOStatusBarHP[i].scale(0.15, 0.15);
+                POPOStatusBarHP[i].originX = 2200;
+                POPOStatusBarHP[i].originY = 1000;
+            }
 
-            ////////////////////////メイン処理////////////////////////
+            //ポポATKの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                POPOStatusBarATK[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        POPOStatusBarATK[i].image = core.assets['img/baratack1.png'];
+                        POPOStatusBarATK[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        POPOStatusBarATK[i].image = core.assets['img/baratack2.png'];
+                        POPOStatusBarATK[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        POPOStatusBarATK[i].image = core.assets['img/baratack3.png'];
+                        POPOStatusBarATK[i].opacity = 1;
+                        break;
+                }
+                POPOStatusBarATK[i].scale(0.15, 0.15);
+                POPOStatusBarATK[i].originX = 2200;
+                POPOStatusBarATK[i].originY = 1100;
+            }
+
+            //ポポSPEEDの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                POPOStatusBarSPEED[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        POPOStatusBarSPEED[i].image = core.assets['img/barspeed1.png'];
+                        POPOStatusBarSPEED[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        POPOStatusBarSPEED[i].image = core.assets['img/barspeed2.png'];
+                        POPOStatusBarSPEED[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        POPOStatusBarSPEED[i].image = core.assets['img/barspeed3.png'];
+                        POPOStatusBarSPEED[i].opacity = 1;
+                        break;
+                }
+                POPOStatusBarSPEED[i].scale(0.15, 0.15);
+                POPOStatusBarSPEED[i].width = POPO.SPEED / MAXSPEED * 600;
+                POPOStatusBarSPEED[i].originX = 2200;
+                POPOStatusBarSPEED[i].originY = 1200;
+            }
+
+            //ステータスバー部分
+            var PIPIStatusBarHP = new Array();
+            var PIPIStatusBarATK = new Array();
+            var PIPIStatusBarSPEED = new Array();
+            
+            //ピピHPの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                PIPIStatusBarHP[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        PIPIStatusBarHP[i].image = core.assets['img/barhp1.png'];
+                        PIPIStatusBarHP[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        PIPIStatusBarHP[i].image = core.assets['img/barhp2.png'];
+                        PIPIStatusBarHP[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        PIPIStatusBarHP[i].image = core.assets['img/barhp3.png'];
+                        PIPIStatusBarHP[i].opacity = 1;
+                        break;
+                }
+                PIPIStatusBarHP[i].scale(0.15, 0.15);
+                PIPIStatusBarHP[i].originX = 2200;
+                PIPIStatusBarHP[i].originY = 1700;
+            }
+
+            //ピピATKの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                PIPIStatusBarATK[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        PIPIStatusBarATK[i].image = core.assets['img/baratack1.png'];
+                        PIPIStatusBarATK[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        PIPIStatusBarATK[i].image = core.assets['img/baratack2.png'];
+                        PIPIStatusBarATK[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        PIPIStatusBarATK[i].image = core.assets['img/baratack3.png'];
+                        PIPIStatusBarATK[i].opacity = 1;
+                        break;
+                }
+                PIPIStatusBarATK[i].scale(0.15, 0.15);
+                PIPIStatusBarATK[i].originX = 2200;
+                PIPIStatusBarATK[i].originY = 1800;
+            }
+
+            //ピピSPEEDの強化値UI
+            for (var i = 0; i < strengthInterval; i++) {
+                PIPIStatusBarSPEED[i] = new Sprite(600, 600);
+                switch (i) {
+                    case 0:
+                        PIPIStatusBarSPEED[i].image = core.assets['img/barspeed1.png'];
+                        PIPIStatusBarSPEED[i].opacity = 0.5;
+                        break;
+                    case 1:
+                        PIPIStatusBarSPEED[i].image = core.assets['img/barspeed2.png'];
+                        PIPIStatusBarSPEED[i].opacity = 0.7;
+                        break;
+                    case 2:
+                        PIPIStatusBarSPEED[i].image = core.assets['img/barspeed3.png'];
+                        PIPIStatusBarSPEED[i].opacity = 1;
+                        break;
+                }
+                PIPIStatusBarSPEED[i].scale(0.15, 0.15);
+                PIPIStatusBarSPEED[i].width = PIPI.SPEED / MAXSPEED * 600;
+                PIPIStatusBarSPEED[i].originX = 2200;
+                PIPIStatusBarSPEED[i].originY = 1900;
+            }
+
+            ////////メイン処理////////
+
+            socket.on("PushSecondCost", function (CostData) {
+                console.log(CostData.Cost);
+                if (haveCost < MaxCost) {
+                    haveCost += CostData.Cost;
+                }
+                else {
+                    haveCost = MaxCost;
+                }
+            });
+
+            socket.on("PushAddCost", function (CostData) {
+                var _PlyaerID = parseInt(CostData.PlayerID.toString());
+                if (_PlyaerID == myPlayerID)
+                    haveCost += CostData.Cost;
+            });
+
             //フレームごとに処理する
             core.addEventListener('enterframe', function ()
             {
-                if (core.frame % core.fps == 0) {
+                /*if (core.frame % core.fps == 0) {
                     if (haveCost < MaxCost)
                         haveCost += fpsCost;
                     else
                         haveCost = MaxCost;
-                }
+                }*/
 
                 //CPフォント
                 for (var i = costDigit - 1; i >= 0; i--) {
@@ -677,150 +662,241 @@ window.onload = function ()
                     }
                 }
 
-                //ステータスバーの管理
+                //スケールの設定を毎フレーム確認(成長度合いをスケールで調整)
+                var PUPUHPwidth = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP;
+                var PUPUATKwidth = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK;
+                var PUPUSPEEDwidth = PUPU.SPEED / MAXSPEED;
+                var POPOHPwidth = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP;
+                var POPOATKwidth = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK;
+                var POPOSPEEDwidth = POPO.SPEED / MAXSPEED;
+                var PIPIHPwidth = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP;
+                var PIPIATKwidth = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK;
+                var PIPISPEEDwidth = PIPI.SPEED / MAXSPEED;
+
+                //ププ
                 {
-                    //横幅の設定を毎フレーム確認(成長度合いをスケールで調整)
-                    var PUPUHPwidth = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP;
-                    var PUPUATKwidth = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK;
-                    var PUPUSPEEDwidth = PUPU.SPEED / MAXSPEED;
-                    var POPOHPwidth = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP;
-                    var POPOATKwidth = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK;
-                    var POPOSPEEDwidth = POPO.SPEED / MAXSPEED;
-                    var PIPIHPwidth = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP;
-                    var PIPIATKwidth = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK;
-                    var PIPISPEEDwidth = PIPI.SPEED / MAXSPEED;
+                    if (PUPUHPwidth >= 15) {
+                        PUPUStatusBarHP[2].visible = true;
+                        PUPUStatusBarHP[1].visible = true;
+                        PUPUStatusBarHP[0].visible = true;
 
-                    ////////////////////////////////////HP////////////////////////////////////
-                    //ププの段階上昇
-                    if (PUPUHPwidth > 10) {
-                        PUPUStatusBar[6].opacity = 1;
-                        PUPUStatusBar[6].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 20;
-                        PUPUStatusBar[3].opacity = 0.5;
-                        PUPUStatusBar[3].width = 3000;
-                        PUPUStatusBar[0].opacity = 0.2;
-                        PUPUStatusBar[0].width = 3000;
+                        PUPUStatusBarHP[0].width = 3000;
+                        PUPUStatusBarHP[1].width = 3000;
+                        PUPUStatusBarHP[2].width = (PUPU.HP * Math.pow(1.1, PUPU.Level) - MAXHP * 5) / MAXHP * 50;
                     }
-                    else if (PUPUHPwidth > 5) {
-                        PUPUStatusBar[3].opacity = 0.5;
-                        PUPUStatusBar[3].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 50;
-                        PUPUStatusBar[0].opacity = 0.2;
-                        PUPUStatusBar[0].width = 3000;
+                    else if (PUPUHPwidth >= 5) {
+                        PUPUStatusBarHP[2].visible = false;
+                        PUPUStatusBarHP[1].visible = true;
+                        PUPUStatusBarHP[0].visible = true;
+
+                        PUPUStatusBarHP[0].width = 3000;
+                        PUPUStatusBarHP[1].width = (PUPU.HP * Math.pow(1.1, PUPU.Level) - MAXHP * 5) / MAXHP * 150;
                     }
                     else {
-                        PUPUStatusBar[0].opacity = 0.2;
-                        PUPUStatusBar[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
+                        PUPUStatusBarHP[2].visible = false;
+                        PUPUStatusBarHP[1].visible = false;
+                        PUPUStatusBarHP[0].visible = true;
+                        PUPUStatusBarHP[0].width = PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP * 600;
                     }
 
-                    //ポポの段階上昇
-                    if (POPOHPwidth > 10) {
-                        POPOStatusBar[6].opacity = 1;
-                        POPOStatusBar[6].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 20;
-                        POPOStatusBar[3].opacity = 0.5;
-                        POPOStatusBar[3].width = 3000;
-                        POPOStatusBar[0].opacity = 0.2;
-                        POPOStatusBar[0].width = 3000;
+                    if (PUPUATKwidth >= 15) {
+                        PUPUStatusBarATK[2].visible = true;
+                        PUPUStatusBarATK[1].visible = true;
+                        PUPUStatusBarATK[0].visible = true;
+
+                        PUPUStatusBarATK[0].width = 3000;
+                        PUPUStatusBarATK[1].width = 3000;
+                        PUPUStatusBarATK[2].width = (PUPU.ATK * Math.pow(1.1, PUPU.Level) - MAXATK * 5) / MAXATK * 50;
                     }
-                    else if (POPOHPwidth > 5) {
-                        POPOStatusBar[3].opacity = 0.5;
-                        POPOStatusBar[3].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 50;
-                        POPOStatusBar[0].opacity = 0.2;
-                        POPOStatusBar[0].width = 3000;
+                    else if (PUPUATKwidth >= 5) {
+                        PUPUStatusBarATK[2].visible = false;
+                        PUPUStatusBarATK[1].visible = true;
+                        PUPUStatusBarATK[0].visible = true;
+
+                        PUPUStatusBarATK[0].width = 3000;
+                        PUPUStatusBarATK[1].width = (PUPU.ATK * Math.pow(1.1, PUPU.Level) - MAXATK * 5) / MAXATK * 150;
                     }
                     else {
-                        POPOStatusBar[0].opacity = 0.2;
-                        POPOStatusBar[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
+                        PUPUStatusBarATK[2].visible = false;
+                        PUPUStatusBarATK[1].visible = false;
+                        PUPUStatusBarATK[0].visible = true;
+                        PUPUStatusBarATK[0].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
                     }
 
-                    //ピピの段階上昇
-                    if (PIPIHPwidth > 10) {
-                        PIPIStatusBar[6].opacity = 1;
-                        PIPIStatusBar[6].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 20;
-                        PIPIStatusBar[3].opacity = 0.5;
-                        PIPIStatusBar[3].width = 3000;
-                        PIPIStatusBar[0].opacity = 0.2;
-                        PIPIStatusBar[0].width = 3000;
+                    /*if (PUPUSPEEDwidth >= 15) {
+                        PUPUStatusBarSPEED[2].visible = true;
+                        PUPUStatusBarSPEED[1].visible = true;
+                        PUPUStatusBarSPEED[0].visible = true;
+
+                        PUPUStatusBarSPEED[0].width = 3000;
+                        PUPUStatusBarSPEED[1].width = 3000;
+                        PUPUStatusBarSPEED[2].width = (PUPU.SPEED * Math.pow(1.1, PUPU.Level) - MAXSPEED * 5) / MAXSPEED * 50;
                     }
-                    else if (PIPIHPwidth > 5) {
-                        PIPIStatusBar[3].opacity = 0.5;
-                        PIPIStatusBar[3].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 50;
-                        PIPIStatusBar[0].opacity = 0.2;
-                        PIPIStatusBar[0].width = 3000;
+                    else if (PUPUSPEEDwidth >= 5) {
+                        PUPUStatusBarSPEED[2].visible = false;
+                        PUPUStatusBarSPEED[1].visible = true;
+                        PUPUStatusBarSPEED[0].visible = true;
+
+                        PUPUStatusBarSPEED[0].width = 3000;
+                        PUPUStatusBarSPEED[1].width = (PUPU.SPEED * Math.pow(1.1, PUPU.Level) - MAXSPEED * 5) / MAXSPEED * 150;
                     }
                     else {
-                        PIPIStatusBar[0].opacity = 0.2;
-                        PIPIStatusBar[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
-                    }
-
-                    ////////////////////////////////////ATK////////////////////////////////////
-                    //ププの段階上昇
-                    if (PUPUATKwidth > 10) {
-                        PUPUStatusBar[7].opacity = 1;
-                        PUPUStatusBar[7].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 20;
-                        PUPUStatusBar[4].opacity = 0.5;
-                        PUPUStatusBar[4].width = 3000;
-                        PUPUStatusBar[1].opacity = 0.2;
-                        PUPUStatusBar[1].width = 3000;
-                    }
-                    else if (PUPUATKwidth > 5) {
-                        PUPUStatusBar[4].opacity = 0.5;
-                        PUPUStatusBar[4].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 50;
-                        PUPUStatusBar[1].opacity = 0.2;
-                        PUPUStatusBar[1].width = 0;
-                    }
-                    else {
-                        PUPUStatusBar[1].opacity = 0.2;
-                        PUPUStatusBar[1].width = PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK * 600;
-                    }
-
-                    //ポポの段階上昇
-                    if (POPOATKwidth > 10) {
-                        POPOStatusBar[7].opacity = 1;
-                        POPOStatusBar[7].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 20;
-                        POPOStatusBar[4].opacity = 0.5;
-                        POPOStatusBar[4].width = 3000;
-                        POPOStatusBar[1].opacity = 0.2;
-                        POPOStatusBar[1].width = 3000;
-                    }
-                    else if (POPOATKwidth > 5) {
-                        POPOStatusBar[4].opacity = 0.5;
-                        POPOStatusBar[4].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 50;
-                        POPOStatusBar[1].opacity = 0.2;
-                        POPOStatusBar[1].width = 3000;
-                    }
-                    else {
-                        POPOStatusBar[1].opacity = 0.2;
-                        POPOStatusBar[1].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
-                    }
-
-                    //ピピの段階上昇
-                    if (PIPIATKwidth > 10) {
-                        PIPIStatusBar[7].opacity = 1;
-                        PIPIStatusBar[7].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 20;
-                        PIPIStatusBar[4].opacity = 0.5;
-                        PIPIStatusBar[4].width = 3000;
-                        PIPIStatusBar[1].opacity = 0.2;
-                        PIPIStatusBar[1].width = 3000;
-                    }
-                    else if (PIPIATKwidth > 5) {
-                        PIPIStatusBar[4].opacity = 0.5;
-                        PIPIStatusBar[4].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 50;
-                        PIPIStatusBar[1].opacity = 0.2;
-                        PIPIStatusBar[1].width = 3000;
-                    }
-                    else {
-                        PIPIStatusBar[1].opacity = 0.2;
-                        PIPIStatusBar[1].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
-                    }
-
-                    ////////////////////////////////////SPEED////////////////////////////////////
-                    PUPUStatusBar[2].opacity = 1;
-                    PUPUStatusBar[2].width = PUPU.SPEED / MAXSPEED * 600;
-                    POPOStatusBar[2].opacity = 1;
-                    POPOStatusBar[2].width = POPO.SPEED / MAXSPEED * 600;
-                    PIPIStatusBar[2].opacity = 1;
-                    PIPIStatusBar[2].width = PIPI.SPEED / MAXSPEED * 600;
+                        PUPUStatusBarSPEED[2].visible = false;
+                        PUPUStatusBarSPEED[1].visible = false;
+                        PUPUStatusBarSPEED[0].visible = true;
+                        PUPUStatusBarSPEED[0].width = PUPU.SPEED * Math.pow(1.1, PUPU.Level) / MAXSPEED * 600;
+                    }*/
                 }
-                
+
+                //ポポ
+                {
+                    if (POPOHPwidth >= 15) {
+                        POPOStatusBarHP[2].visible = true;
+                        POPOStatusBarHP[1].visible = true;
+                        POPOStatusBarHP[0].visible = true;
+
+                        POPOStatusBarHP[0].width = 3000;
+                        POPOStatusBarHP[1].width = 3000;
+                        POPOStatusBarHP[2].width = (POPO.HP * Math.pow(1.1, POPO.Level) - MAXHP * 5) / MAXHP * 50;
+                    }
+                    else if (POPOHPwidth >= 5) {
+                        POPOStatusBarHP[2].visible = false;
+                        POPOStatusBarHP[1].visible = true;
+                        POPOStatusBarHP[0].visible = true;
+
+                        POPOStatusBarHP[0].width = 3000;
+                        POPOStatusBarHP[1].width = (POPO.HP * Math.pow(1.1, POPO.Level) - MAXHP * 5) / MAXHP * 150;
+                    }
+                    else {
+                        POPOStatusBarHP[2].visible = false;
+                        POPOStatusBarHP[1].visible = false;
+                        POPOStatusBarHP[0].visible = true;
+                        POPOStatusBarHP[0].width = POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP * 600;
+                    }
+
+                    if (POPOATKwidth >= 15) {
+                        POPOStatusBarATK[2].visible = true;
+                        POPOStatusBarATK[1].visible = true;
+                        POPOStatusBarATK[0].visible = true;
+
+                        POPOStatusBarATK[0].width = 3000;
+                        POPOStatusBarATK[1].width = 3000;
+                        POPOStatusBarATK[2].width = (POPO.ATK * Math.pow(1.1, POPO.Level) - MAXATK * 5) / MAXATK * 50;
+                    }
+                    else if (POPOATKwidth >= 5) {
+                        POPOStatusBarATK[2].visible = false;
+                        POPOStatusBarATK[1].visible = true;
+                        POPOStatusBarATK[0].visible = true;
+
+                        POPOStatusBarATK[0].width = 3000;
+                        POPOStatusBarATK[1].width = (POPO.ATK * Math.pow(1.1, POPO.Level) - MAXATK * 5) / MAXATK * 150;
+                    }
+                    else {
+                        POPOStatusBarATK[2].visible = false;
+                        POPOStatusBarATK[1].visible = false;
+                        POPOStatusBarATK[0].visible = true;
+                        POPOStatusBarATK[0].width = POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK * 600;
+                    }
+
+                    /*if (POPOSPEEDwidth >= 15) {
+                        POPOStatusBarSPEED[2].visible = true;
+                        POPOStatusBarSPEED[1].visible = true;
+                        POPOStatusBarSPEED[0].visible = true;
+
+                        POPOStatusBarSPEED[0].width = 3000;
+                        POPOStatusBarSPEED[1].width = 3000;
+                        POPOStatusBarSPEED[2].width = (POPO.SPEED * Math.pow(1.1, POPO.Level) - MAXSPEED * 5) / MAXSPEED * 50;
+                    }
+                    else if (POPOSPEEDwidth >= 5) {
+                        POPOStatusBarSPEED[2].visible = false;
+                        POPOStatusBarSPEED[1].visible = true;
+                        POPOStatusBarSPEED[0].visible = true;
+
+                        POPOStatusBarSPEED[0].width = 3000;
+                        POPOStatusBarSPEED[1].width = (POPO.SPEED * Math.pow(1.1, POPO.Level) - MAXSPEED * 5) / MAXSPEED * 150;
+                    }
+                    else {
+                        POPOStatusBarSPEED[2].visible = false;
+                        POPOStatusBarSPEED[1].visible = false;
+                        POPOStatusBarSPEED[0].visible = true;
+                        POPOStatusBarSPEED[0].width = POPO.SPEED * Math.pow(1.1, POPO.Level) / MAXSPEED * 600;
+                    }*/
+                }
+
+                //ピピ
+                {
+                    if (PIPIHPwidth >= 15) {
+                        PIPIStatusBarHP[2].visible = true;
+                        PIPIStatusBarHP[1].visible = true;
+                        PIPIStatusBarHP[0].visible = true;
+
+                        PIPIStatusBarHP[0].width = 3000;
+                        PIPIStatusBarHP[1].width = 3000;
+                        PIPIStatusBarHP[2].width = (PIPI.HP * Math.pow(1.1, PIPI.Level) - MAXHP * 5) / MAXHP * 50;
+                    }
+                    else if (PIPIHPwidth >= 5) {
+                        PIPIStatusBarHP[2].visible = false;
+                        PIPIStatusBarHP[1].visible = true;
+                        PIPIStatusBarHP[0].visible = true;
+
+                        PIPIStatusBarHP[0].width = 3000;
+                        PIPIStatusBarHP[1].width = (PIPI.HP * Math.pow(1.1, PIPI.Level) - MAXHP * 5) / MAXHP * 150;
+                    }
+                    else {
+                        PIPIStatusBarHP[2].visible = false;
+                        PIPIStatusBarHP[1].visible = false;
+                        PIPIStatusBarHP[0].visible = true;
+                        PIPIStatusBarHP[0].width = PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP * 600;
+                    }
+
+                    if (PIPIATKwidth >= 15) {
+                        PIPIStatusBarATK[2].visible = true;
+                        PIPIStatusBarATK[1].visible = true;
+                        PIPIStatusBarATK[0].visible = true;
+
+                        PIPIStatusBarATK[0].width = 3000;
+                        PIPIStatusBarATK[1].width = 3000;
+                        PIPIStatusBarATK[2].width = (PIPI.ATK * Math.pow(1.1, PIPI.Level) - MAXATK * 5) / MAXATK * 50;
+                    }
+                    else if (PIPIATKwidth >= 5) {
+                        PIPIStatusBarATK[2].visible = false;
+                        PIPIStatusBarATK[1].visible = true;
+                        PIPIStatusBarATK[0].visible = true;
+
+                        PIPIStatusBarATK[0].width = 3000;
+                        PIPIStatusBarATK[1].width = (PIPI.ATK * Math.pow(1.1, PIPI.Level) - MAXATK * 5) / MAXATK * 150;
+                    }
+                    else {
+                        PIPIStatusBarATK[2].visible = false;
+                        PIPIStatusBarATK[1].visible = false;
+                        PIPIStatusBarATK[0].visible = true;
+                        PIPIStatusBarATK[0].width = PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK * 600;
+                    }
+
+                    /*if (PIPISPEEDwidth >= 15) {
+                        PIPIStatusBarSPEED[2].visible = true;
+                        PIPIStatusBarSPEED[1].visible = true;
+                        PIPIStatusBarSPEED[0].visible = true;
+
+                        PIPIStatusBarSPEED[0].width = 3000;
+                        PIPIStatusBarSPEED[1].width = 3000;
+                        PIPIStatusBarSPEED[2].width = (PIPI.SPEED * Math.pow(1.1, PIPI.Level) - MAXSPEED * 5) / MAXSPEED * 50;
+                    }
+                    else if (PIPISPEEDwidth >= 5) {
+                        PIPIStatusBarSPEED[2].visible = false;
+                        PIPIStatusBarSPEED[1].visible = true;
+                        PIPIStatusBarSPEED[0].visible = true;
+
+                        PIPIStatusBarSPEED[0].width = 3000;
+                        PIPIStatusBarSPEED[1].width = (PIPI.SPEED * Math.pow(1.1, PIPI.Level) - MAXSPEED * 5) / MAXSPEED * 150;
+                    }
+                    else {
+                        PIPIStatusBarSPEED[2].visible = false;
+                        PIPIStatusBarSPEED[1].visible = false;
+                        PIPIStatusBarSPEED[0].visible = true;
+                        PIPIStatusBarSPEED[0].width = PIPI.SPEED * Math.pow(1.1, PIPI.Level) / MAXSPEED * 600;
+                    }*/
+                }
 
                 degree += 1.5;
             });
@@ -980,17 +1056,8 @@ window.onload = function ()
                         }
                     }
                 }
-                tapObj = null;
-            });
 
-            //コストの追加を行う
-            socket.on("PushAddCost", function (CostData) {
-                if(myPlayerID == CostData.PlayerID)
-                {
-                    console.log("GetCost : " + CostData.Cost);
-                    var AddCost = parseInt(CostData.Cost);
-                    haveCost += AddCost;
-                }
+                tapObj = null;
             });
 
             ////////描画////////
@@ -1035,7 +1102,9 @@ window.onload = function ()
 
             //魂の受け取り&描画処理
             socket.on("SpiritPushed", function (SpiritData) {
-                if (SpiritData.PlayerID == myPlayerID) {
+                var _PlayerID = parseInt(SpiritData.PlayerID.toString());
+
+                if (_PlayerID == myPlayerID) {
                     for (var i = 0; i < spiritsLength; i++) {
                         if (Spirits[i] == null) {
                             Spirits[i] = new Spirit(SpiritData.Type, SpiritData.PlayerID, core);
@@ -1043,8 +1112,6 @@ window.onload = function ()
                             break;
                         }
                     }
-
-                    console.log(Spirits);
                 }
             });
 
@@ -1067,21 +1134,42 @@ window.onload = function ()
             }
 
             //各悪魔のステータスバー
-            for (var i = 0; i < PUPUStatusBar.length; i++)
+            for (var i = 0; i < PUPUStatusBarHP.length; i++)
             {
-                scene.addChild(PUPUStatusBar[i]);
-                scene.addChild(POPOStatusBar[i]);
-                scene.addChild(PIPIStatusBar[i]);
-                scene.addChild(PUPUStatusIcon[i]);
-                scene.addChild(POPOStatusIcon[i]);
-                scene.addChild(PIPIStatusIcon[i]);
+                scene.addChild(PUPUStatusBarHP[i]);
+            }
+            for (var i = 0; i < PUPUStatusBarATK.length; i++) {
+                scene.addChild(PUPUStatusBarATK[i]);
+            }
+            for (var i = 0; i < PUPUStatusBarSPEED.length; i++) {
+                scene.addChild(PUPUStatusBarSPEED[i]);
+            }
+
+            for (var i = 0; i < POPOStatusBarHP.length; i++) {
+                scene.addChild(POPOStatusBarHP[i]);
+            }
+            for (var i = 0; i < POPOStatusBarATK.length; i++) {
+                scene.addChild(POPOStatusBarATK[i]);
+            }
+            for (var i = 0; i < POPOStatusBarSPEED.length; i++) {
+                scene.addChild(POPOStatusBarSPEED[i]);
+            }
+
+            for (var i = 0; i < PIPIStatusBarHP.length; i++) {
+                scene.addChild(PIPIStatusBarHP[i]);
+            }
+            for (var i = 0; i < PIPIStatusBarATK.length; i++) {
+                scene.addChild(PIPIStatusBarATK[i]);
+            }
+            for (var i = 0; i < PIPIStatusBarSPEED.length; i++) {
+                scene.addChild(PIPIStatusBarSPEED[i]);
             }
             /////////////前面/////////////
 
             return scene;
         };
 
-        //////////////////////////リザルトシーン//////////////////////////
+//////////////////////////リザルトシーン//////////////////////////////////////////////////////////////////////////////
         var ResultScene = function ()
         {
             var scene = new Scene();

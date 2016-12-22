@@ -96,6 +96,12 @@ io.sockets.on('connection', function (socket)
     socket.on("GameEndRequest", function () {
         socket.broadcast.emit("PushGameEndRequest");
     });
+
+    //一定間隔でコストを送信
+    setInterval(function () {
+        socket.broadcast.emit("PushSecondCost", { Cost: secondPerCost });
+    }, 1500);
+
     //コストの送信
     socket.on("AddCost", function (CostData) {
         var Coststr = CostData.Cost.toString();
