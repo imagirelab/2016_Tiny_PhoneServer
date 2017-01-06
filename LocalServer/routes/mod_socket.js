@@ -56,6 +56,8 @@ var PlayerID = 0;
 //秒間取得コスト
 var secondPerCost = 25;
 
+var PushCostFlag = true;
+
 //接続確立時の処理
 io.sockets.on('connection', function (socket) {
     // この中でデータのやり取りを行う
@@ -80,20 +82,28 @@ io.sockets.on('connection', function (socket) {
 
     //ポーズ開始の送信
     socket.on("StopRequest", function () {
-        socket.broadcast.emit("PushStopRequest");
+        PushCostFlag = false;
+        socket.emit("PushStopRequest");
+        console.log("PushStop");
     });
     //ポーズ終了の送信
     socket.on("StopEndRequest", function () {
-        socket.broadcast.emit("PushStopEndRequest");
+        PushCostFlag = true;
+        socket.emit("PushStopEndRequest");
+        console.log("PushStopEnd");
     });
     //試合が終了したときに送る
     socket.on("GameEndRequest", function () {
-        socket.broadcast.emit("PushGameEndRequest");
+        socket.emit("PushGameEndRequest");
     });
 
     //一定間隔でコストを送信
     setInterval(function () {
-        socket.broadcast.emit("PushSecondCost", {Cost: secondPerCost});
+        if (PushCostFlag)
+        {
+            socket.emit("PushSecondCost", { Cost: secondPerCost });
+            console.log("PushCost : " + secondPerCost);
+        }
     }, 1500);
 
     //マッチング終了を送信
