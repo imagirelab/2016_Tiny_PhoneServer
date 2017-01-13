@@ -155,7 +155,7 @@ io.sockets.on('connection', function (socket) {
 
     //コストの送信
     socket.on("AddCost", function (CostData) {
-        var Coststr = CostData.Cost.toString();
+        var Coststr = CostData.Cost();
         var PlayerIDstr = CostData.PlayerID.toString();
 
         socket.broadcast.emit("PushAddCost", { Cost: Coststr, PlayerID: PlayerIDstr });
