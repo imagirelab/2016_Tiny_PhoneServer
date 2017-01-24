@@ -179,7 +179,7 @@ window.onload = function ()
             {
                 //現在表示しているシーンをゲームシーンに置き換えます
                 //core.replaceScene(MainScene());
-                core.replaceScene(MainScene());
+                core.replaceScene(MatchingScene());
             });            
 
             ////////描画////////
@@ -457,10 +457,10 @@ window.onload = function ()
 
             //秒間コストを受け取り
             socket.on("PushSecondCost", function (CostData) {
-                console.log(CostData.Cost);
+                var intCost = parseInt(CostData.Cost.toString());
                 if (haveCost < MaxCost)
                 {
-                    haveCost += CostData.Cost;
+                    haveCost += intCost;
                 }
                 else
                 {
@@ -471,8 +471,9 @@ window.onload = function ()
             //倒す・倒された時のコストを受け取り
             socket.on("PushAddCost", function (CostData) {
                 var _PlyaerID = parseInt(CostData.PlayerID.toString());
+                var intCost = parseInt(CostData.Cost.toString());
                 if (_PlyaerID == myPlayerID)
-                    haveCost += CostData.Cost;
+                    haveCost += intCost;
             });
 
             //ポーズ画面へ移動
@@ -854,9 +855,9 @@ window.onload = function ()
 
             scene.backgroundColor = 'rgba(0,0,0,0.5)';
 
-
-            scene.addEventListener(Event.TOUCH_START, function (e) {
-                socket.emit("StopEndRequest");
+            //ゲーム終了を受け取ってリザルト画面へ移行
+            socket.on("PushGameEndRequest", function () {
+                core.replaceScene(ResultScene());
             });
 
             socket.on("PushStopEndRequest", function ()
@@ -867,6 +868,21 @@ window.onload = function ()
                     core.popScene();
                 }
             });
+
+            if (!stoppingFlag)
+            {
+                //秒間コストを受け取り
+                socket.on("PushSecondCost", function (CostData)
+                {
+                    var intCost = parseInt(CostData.Cost.toString());
+                    if (haveCost < MaxCost) {
+                        haveCost += intCost;
+                    }
+                    else {
+                        haveCost = MaxCost;
+                    }
+                });
+            }
 
             return scene;
         };

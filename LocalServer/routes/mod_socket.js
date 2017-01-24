@@ -105,7 +105,6 @@ io.sockets.on('connection', function (socket) {
         if (PushCostFlag)
         {
             socket.emit("PushSecondCost", { Cost: secondPerCost });
-            console.log("PushCost : " + secondPerCost);
         }
     }, 1500);
 
@@ -158,7 +157,7 @@ io.sockets.on('connection', function (socket) {
 
     //コストの送信
     socket.on("AddCost", function (CostData) {
-        var Coststr = CostData.Cost();
+        var Coststr = CostData.Cost.toString();
         var PlayerIDstr = CostData.PlayerID.toString();
 
         socket.broadcast.emit("PushAddCost", { Cost: Coststr, PlayerID: PlayerIDstr });
