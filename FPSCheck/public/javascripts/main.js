@@ -1,13 +1,13 @@
 //var socket = io.connect('https://safe-reef-35714.herokuapp.com/');
-var socket = io.connect('ws://192.168.11.250:5555');
+//var socket = io.connect('ws://192.168.11.250:5555');
 //var socket = io.connect('ws://localhost:5555');
 
 var myPlayerID = 0;
 
-socket.on("connect", function () {
-    var id = socket.io.engine.id;
-    console.log("Connected ID: " + id);
-});
+//socket.on("connect", function () {
+//    var id = socket.io.engine.id;
+//    console.log("Connected ID: " + id);
+//});
 
 
 
@@ -15,7 +15,7 @@ enchant();
 
 window.onload = function ()
 {
-    var core = new Core(3200, 1800);
+    var core = new Core(1280, 720);
 
     //悪魔               Type     Dir  Level ID   BASECOST COST  HP  ATK  SPEED    
     var PUPU = new Demon("PUPU", "None", 0, null, 100,     100, 150, 250, 3);
@@ -74,6 +74,10 @@ window.onload = function ()
     var buttonUpFlag = false;
 
     var stoppingFlag = false;
+
+    var label = new Label();
+    label.moveTo(10, 50);
+    label.font = "italic 36px 'ＭＳ 明朝', 'ＭＳ ゴシック', 'Times New Roman', serif, sans-serif";
 
     //事前にロードを行う
     //背景
@@ -180,13 +184,18 @@ window.onload = function ()
                 //現在表示しているシーンをゲームシーンに置き換えます
                 //core.replaceScene(MainScene());
                 core.replaceScene(MainScene());
-            });            
+            });
+
+            label.addEventListener("enterframe", function () {
+                label.text = core.actualFps;
+            });
 
             ////////描画////////
             scene.addChild(titleBack);
             scene.addChild(title);
             scene.addChild(tapRequest);
             scene.addChild(PUPUgif);
+            scene.addChild(label);
 
             return scene;
         };
@@ -196,13 +205,13 @@ window.onload = function ()
         {
             var scene = new Scene();
 
-            socket.emit("EnterRobby");
+            //socket.emit("EnterRobby");
 
-            //プレイヤーIDのセット
-            socket.on("PushPlayerID", function (idData) {
-                myPlayerID = idData.PlayerID;
-                console.log("Connect PlayerID: " + myPlayerID);
-            });
+            ////プレイヤーIDのセット
+            //socket.on("PushPlayerID", function (idData) {
+            //    myPlayerID = idData.PlayerID;
+            //    console.log("Connect PlayerID: " + myPlayerID);
+            //});
 
             var back = new Sprite(1280, 720);
             back.image = core.assets['matchingUI/sumatai_haikei.png'];
@@ -224,10 +233,10 @@ window.onload = function ()
                 }
             });
 
-            socket.on("PushMatchingEnd", function () {
-                //現在表示しているシーンをゲームシーンに置き換えます
-                core.replaceScene(MainScene());
-            });
+            //socket.on("PushMatchingEnd", function () {
+            //    //現在表示しているシーンをゲームシーンに置き換えます
+            //    core.replaceScene(MainScene());
+            //});
 
             scene.addChild(back);
             scene.addChild(teamColor);
@@ -455,40 +464,44 @@ window.onload = function ()
             }
             ////////メイン処理////////
 
-            //秒間コストを受け取り
-            socket.on("PushSecondCost", function (CostData) {
-                console.log(CostData.Cost);
-                if (haveCost < MaxCost)
-                {
-                    haveCost += CostData.Cost;
-                }
-                else
-                {
-                    haveCost = MaxCost;
-                }
-            });
+            ////秒間コストを受け取り
+            //socket.on("PushSecondCost", function (CostData) {
+            //    console.log(CostData.Cost);
+            //    if (haveCost < MaxCost)
+            //    {
+            //        haveCost += CostData.Cost;
+            //    }
+            //    else
+            //    {
+            //        haveCost = MaxCost;
+            //    }
+            //});
 
-            //倒す・倒された時のコストを受け取り
-            socket.on("PushAddCost", function (CostData) {
-                var _PlyaerID = parseInt(CostData.PlayerID.toString());
-                if (_PlyaerID == myPlayerID)
-                    haveCost += CostData.Cost;
-            });
+            ////倒す・倒された時のコストを受け取り
+            //socket.on("PushAddCost", function (CostData) {
+            //    var _PlyaerID = parseInt(CostData.PlayerID.toString());
+            //    if (_PlyaerID == myPlayerID)
+            //        haveCost += CostData.Cost;
+            //});
 
-            //ポーズ画面へ移動
-            socket.on("PushStopRequest", function ()
-            {
-                if (!stoppingFlag)
-                {
-                    stoppingFlag = true;
-                    core.pushScene(PauseScene());
-                }                    
-            });
+            ////ポーズ画面へ移動
+            //socket.on("PushStopRequest", function ()
+            //{
+            //    if (!stoppingFlag)
+            //    {
+            //        stoppingFlag = true;
+            //        core.pushScene(PauseScene());
+            //    }                    
+            //});
 
-            //ゲーム終了を受け取ってリザルト画面へ移行
-            socket.on("PushGameEndRequest", function ()
-            {
-                core.replaceScene(ResultScene());
+            ////ゲーム終了を受け取ってリザルト画面へ移行
+            //socket.on("PushGameEndRequest", function ()
+            //{
+            //    core.replaceScene(ResultScene());
+            //});
+
+            label.addEventListener("enterframe", function () {
+                label.text = core.actualFps;
             });
 
             //フレームごとに処理する
@@ -519,12 +532,12 @@ window.onload = function ()
                 if(core.input.up && buttonUpFlag)
                 {
                     buttonUpFlag = false;
-                    socket.emit("StopRequest");                 
+                    //socket.emit("StopRequest");                 
                 }
 
                 core.addEventListener('summonSpiritbuttonup', function () {
                     if (oneCallFlag) {
-                        socket.emit("SpiritPush", { Type: "PUPU", PlayerID: myPlayerID });
+                        //socket.emit("SpiritPush", { Type: "PUPU", PlayerID: myPlayerID });
                         oneCallFlag = false;
                     }
                 });
@@ -760,20 +773,20 @@ window.onload = function ()
                 Arrow.y = -9000;
             });
 
-            //魂の受け取り&描画処理
-            socket.on("SpiritPushed", function (SpiritData) {
-                var _PlayerID = parseInt(SpiritData.PlayerID.toString());
+            ////魂の受け取り&描画処理
+            //socket.on("SpiritPushed", function (SpiritData) {
+            //    var _PlayerID = parseInt(SpiritData.PlayerID.toString());
 
-                if (_PlayerID == myPlayerID) {
-                    for (var i = 0; i < spiritsLength; i++) {
-                        if (Spirits[i] == null) {
-                            Spirits[i] = new Spirit(SpiritData.Type, SpiritData.PlayerID, core);
-                            scene.addChild(Spirits[i].Sprite);
-                            break;
-                        }
-                    }
-                }
-            });
+            //    if (_PlayerID == myPlayerID) {
+            //        for (var i = 0; i < spiritsLength; i++) {
+            //            if (Spirits[i] == null) {
+            //                Spirits[i] = new Spirit(SpiritData.Type, SpiritData.PlayerID, core);
+            //                scene.addChild(Spirits[i].Sprite);
+            //                break;
+            //            }
+            //        }
+            //    }
+            //});
 
             //フォント
             scene.addChild(CPFont);
@@ -802,6 +815,7 @@ window.onload = function ()
             scene.addChild(PIPIATK);
             scene.addChild(PIPISPEED);
 
+            scene.addChild(label);
             /////////////前面/////////////
             console.log(buttonUpFlag);
             return scene;
@@ -856,17 +870,17 @@ window.onload = function ()
 
 
             scene.addEventListener(Event.TOUCH_START, function (e) {
-                socket.emit("StopEndRequest");
+                //socket.emit("StopEndRequest");
             });
 
-            socket.on("PushStopEndRequest", function ()
-            {
-                if (stoppingFlag)
-                {
-                    stoppingFlag = false;
-                    core.popScene();
-                }
-            });
+            //socket.on("PushStopEndRequest", function ()
+            //{
+            //    if (stoppingFlag)
+            //    {
+            //        stoppingFlag = false;
+            //        core.popScene();
+            //    }
+            //});
 
             return scene;
         };
@@ -1121,7 +1135,7 @@ function PushDemon(demon, btn, startPos, endPos, setPlayerID)
 
     //データ送信
     if (demon.Direction != "None")
-        socket.emit("DemonPush", { Type: demon.Type, Direction: demon.Direction, Level: demon.Level, PlayerID: demon.PlayerID });
+        //socket.emit("DemonPush", { Type: demon.Type, Direction: demon.Direction, Level: demon.Level, PlayerID: demon.PlayerID });
 
     //ログ出力
     console.log(demon.Type);
@@ -1133,8 +1147,8 @@ function PushDemon(demon, btn, startPos, endPos, setPlayerID)
 //必殺技送信
 function PushDeadly(setPlayerID)
 {
-    socket.emit("DeadlyPush", { Deadly: "Fire", PlayerID: setPlayerID});
-    console.log("DeadlyPushed");
+    //socket.emit("DeadlyPush", { Deadly: "Fire", PlayerID: setPlayerID});
+    //console.log("DeadlyPushed");
 }
 
 //エラー時アラートが呼び出されるように
