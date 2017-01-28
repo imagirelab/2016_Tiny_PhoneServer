@@ -94,10 +94,16 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit("PushStopEndRequest");
         console.log("PushStopEnd");
     });
+
     //試合が終了したときに送る
     socket.on("GameEndRequest", function () {
         socket.emit("PushGameEndRequest");
         socket.broadcast.emit("PushGameEndRequest");
+    });
+
+    //リザルト終了を送信
+    socket.on("PhoneFinalEnd", function () {
+        socket.broadcast.emit("FinalEnd");
     });
 
     //一定間隔でコストを送信

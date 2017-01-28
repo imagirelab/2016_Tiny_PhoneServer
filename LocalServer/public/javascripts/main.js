@@ -10,24 +10,29 @@ socket.on("connect", function () {
     console.log("Connected ID: " + id);
 });
 
-
-
 enchant();
 
 window.onload = function ()
 {
     var core = new Core(1280, 720);
 
-    //悪魔               Type     Dir  Level ID   BASECOST COST  HP  ATK  SPEED    
-    var PUPU = new Demon("PUPU", "None", 0, null, 100,     100, 150, 250, 3);
-    var POPO = new Demon("POPO", "None", 0, null, 100,     100, 1000, 100, 2);
-    var PIPI = new Demon("PIPI", "None", 0, null, 100,     100, 100, 50, 5);
+    //悪魔                       Type     Dir  Level ID   BASECOST COST  HP  ATK  SPEED    
+    var defaultPUPU = new Demon("PUPU", "None", 0, null, 100, 100, 150, 250, 3);
+    var defaultPOPO = new Demon("POPO", "None", 0, null, 100, 100, 1000, 100, 2);
+    var defaultPIPI = new Demon("PIPI", "None", 0, null, 100, 100, 100, 50, 5);
+
+    //悪魔
+    var PUPU;
+    var POPO;
+    var PIPI;
 
     //自分の初期所持コスト
-    var haveCost = 500;
+    var defaulthaveCost = 500;
+    var haveCost;
 
     //最大所持コスト
-    var MaxCost = 3000;
+    var defaultMaxCost = 3000;
+    var MaxCost;
 
     //毎秒取得できるコスト
     var fpsCost = 25;
@@ -50,16 +55,13 @@ window.onload = function ()
     var deadlyFlag;
     //必殺技コスト数
     var deadlyCost = 10;
-    //パワーアップのコストが増える間隔
+    //パワーアップのコストが増えるレベルの間隔
     var powerUpInterval = 5;
 
     //10個までの魂保管用配列
     var spiritsLength = 10;
     var Spirits = new Array(spiritsLength);
-    for (var i = 0; i < spiritsLength; i++)
-    {
-        Spirits[i] = null;
-    }
+
     //魂をふよふよさせるために必要な変数
     var degree = 0;
 
@@ -111,17 +113,10 @@ window.onload = function ()
     core.preload('matchingUI/teamb.png');
     core.preload('matchingUI/teamr.png');
     core.preload('matchingUI/matching.png');
-    core.preload('matchingUI/setumei.png');
-    core.preload('matchingUI/setumei2.png');
-    core.preload('matchingUI/setumei3.png');
-    core.preload('matchingUI/setumei4.png');
-    core.preload('matchingUI/setumei5.png');
-    core.preload('matchingUI/setumei6.png');
-    core.preload('matchingUI/setumei7.png');
-    core.preload('matchingUI/setumei8.png');
-    core.preload('img/matome_red.png');
-    core.preload('img/matome_blue.png');
-    core.preload('img/matome_green.png');
+    core.preload('matchingUI/sumahotaiki.png');
+    core.preload('img/red.png');
+    core.preload('img/blue.png');
+    core.preload('img/green.png');
     core.preload('img/barhp.png');
     core.preload('img/barattack.png');
     core.preload('img/barspeed.png');
@@ -149,6 +144,18 @@ window.onload = function ()
         var TitleScene = function ()
         {
             var scene = new Scene();
+
+            //全体の初期化
+            PUPU = InitializeDemon(PUPU, defaultPUPU);
+            POPO = InitializeDemon(POPO, defaultPOPO);
+            PIPI = InitializeDemon(PIPI, defaultPIPI);
+
+            haveCost = InitializeCost(haveCost, defaulthaveCost);
+            MaxCost = InitializeMaxCost(MaxCost, defaultMaxCost);
+
+            oneCallFlag = stoppingFlag = deadlyFlag = buttonUpFlag = false;
+
+            core.frame = 0;
             
             ////////画像情報処理////////
             //背景
@@ -188,9 +195,13 @@ window.onload = function ()
             ////////メイン処理////////
             scene.addEventListener(Event.TOUCH_START, function ()
             {
-                //現在表示しているシーンをゲームシーンに置き換えます
-                //core.replaceScene(MainScene());
-                core.replaceScene(MatchingScene());
+                //3秒経過しないと受け付けない
+                if (core.frame > core.fps * 1.5)
+                {
+                    //現在表示しているシーンをゲームシーンに置き換えます
+                    //core.replaceScene(MainScene());
+                    core.replaceScene(MatchingScene());
+                }                
             });            
 
             ////////描画////////
@@ -226,6 +237,16 @@ window.onload = function ()
             teamColor.x = 500;
             teamColor.y = -50;
 
+            var setumei = new Sprite(512, 512);
+            setumei.image = core.assets["matchingUI/sumahotaiki.png"];
+            setumei.x = core.width / 2 - setumei.width / 2;
+            setumei.y = core.height / 2 - setumei.height / 2;
+            setumei.frame = 0;
+
+            var showTime = 0;
+            var moveTime = 2;
+            var moveFlag = false;
+
             scene.addEventListener('enterframe', function ()
             {
                 if (myPlayerID / 2 == 0) {
@@ -233,6 +254,23 @@ window.onload = function ()
                 }
                 else {
                     teamColor.image = core.assets['matchingUI/teamb.png'];
+                }
+
+                if (!moveFlag) {
+                    showTime = core.frame / core.fps;
+                    setumei.x -= showTime * showTime;
+                }
+                else {
+                    showTime = core.frame / core.fps - 4.85;
+                    setumei.x -= showTime * showTime;
+                }
+
+                if (setumei.x + setumei.width < 0) {
+                    setumei.x = core.width;
+                    core.frame = 0;
+                    showTime = core.frame / core.fps - 4.85;
+                    moveFlag = true;
+                    setumei.frame++;
                 }
             });
 
@@ -243,6 +281,7 @@ window.onload = function ()
 
             scene.addChild(back);
             scene.addChild(teamColor);
+            scene.addChild(setumei);
 
             return scene;
         };
@@ -285,6 +324,7 @@ window.onload = function ()
                 var deadlyBtn = new Sprite(239, 140);
                 deadlyBtn.image = core.assets['img/deadly.png'];
                 deadlyBtn.scale(1, 1);
+                deadlyBtn.opacity = 0;
                 deadlyBtn.x = 175;
                 deadlyBtn.y = 0;
 
@@ -400,10 +440,10 @@ window.onload = function ()
                     PUPUCostFont.x = 600;
                     PUPUCostFont.y = -10;
 
-                    var PUPUHP = new Sprite(600, 600);
-                    PUPUHP.image = core.assets['img/barhp.png'];
-                    PUPUHP.scale(0.05, 0.5);
-                    PUPUHP.x = 375;
+                    var PUPUHP = new Sprite(150, 600);
+                    PUPUHP.image = core.assets['img/green.png'];
+                    PUPUHP.scale(0.2, 0.5);
+                    PUPUHP.x = 600;
                     PUPUHP.y = -500;
                     PUPUHP.originY = PUPUHP.height;
                     PUPUHP.rotate(-90);
@@ -416,10 +456,10 @@ window.onload = function ()
                     PUPUHPicon.y = -200;
                     PUPUHPicon.frame = 0;
 
-                    var PUPUATK = new Sprite(600, 600);
-                    PUPUATK.image = core.assets['img/barattack.png'];
-                    PUPUATK.scale(0.05, 0.5);
-                    PUPUATK.x = 375;
+                    var PUPUATK = new Sprite(150, 600);
+                    PUPUATK.image = core.assets['img/red.png'];
+                    PUPUATK.scale(0.2, 0.5);
+                    PUPUATK.x = 600;
                     PUPUATK.y = -450;
                     PUPUATK.originY = PUPUATK.height;
                     PUPUATK.rotate(-90);
@@ -432,10 +472,10 @@ window.onload = function ()
                     PUPUATKicon.y = -150;
                     PUPUATKicon.frame = 0;
 
-                    var PUPUSPEED = new Sprite(600, 600);
-                    PUPUSPEED.image = core.assets['img/barspeed.png'];
-                    PUPUSPEED.scale(0.05, 0.5);
-                    PUPUSPEED.x = 375;
+                    var PUPUSPEED = new Sprite(150, 600);
+                    PUPUSPEED.image = core.assets['img/blue.png'];
+                    PUPUSPEED.scale(0.2, 0.5);
+                    PUPUSPEED.x = 600;
                     PUPUSPEED.y = -400;
                     PUPUSPEED.originY = PUPUSPEED.height;
                     PUPUSPEED.rotate(-90);
@@ -455,10 +495,10 @@ window.onload = function ()
                     POPOCostFont.x = 600;
                     POPOCostFont.y = 225;
 
-                    var POPOHP = new Sprite(600, 600);
-                    POPOHP.image = core.assets['img/barhp.png'];
-                    POPOHP.scale(0.05, 0.5);
-                    POPOHP.x = 375;
+                    var POPOHP = new Sprite(150, 600);
+                    POPOHP.image = core.assets['img/green.png'];
+                    POPOHP.scale(0.2, 0.5);
+                    POPOHP.x = 600;
                     POPOHP.y = -265;
                     POPOHP.originY = POPOHP.height;
                     POPOHP.rotate(-90);
@@ -471,10 +511,10 @@ window.onload = function ()
                     POPOHPicon.y = 35;
                     POPOHPicon.frame = 0;
 
-                    var POPOATK = new Sprite(600, 600);
-                    POPOATK.image = core.assets['img/barattack.png'];
-                    POPOATK.scale(0.05, 0.5);
-                    POPOATK.x = 375;
+                    var POPOATK = new Sprite(150, 600);
+                    POPOATK.image = core.assets['img/red.png'];
+                    POPOATK.scale(0.2, 0.5);
+                    POPOATK.x = 600;
                     POPOATK.y = -215;
                     POPOATK.originY = POPOATK.height;
                     POPOATK.rotate(-90);
@@ -487,10 +527,10 @@ window.onload = function ()
                     POPOATKicon.y = 85;
                     POPOATKicon.frame = 0;
 
-                    var POPOSPEED = new Sprite(600, 600);
-                    POPOSPEED.image = core.assets['img/barspeed.png'];
-                    POPOSPEED.scale(0.05, 0.5);
-                    POPOSPEED.x = 375;
+                    var POPOSPEED = new Sprite(150, 600);
+                    POPOSPEED.image = core.assets['img/blue.png'];
+                    POPOSPEED.scale(0.2, 0.5);
+                    POPOSPEED.x = 600;
                     POPOSPEED.y = -165;
                     POPOSPEED.originY = POPOSPEED.height;
                     POPOSPEED.rotate(-90);
@@ -510,10 +550,10 @@ window.onload = function ()
                     PIPICostFont.x = 600;
                     PIPICostFont.y = 460;
 
-                    var PIPIHP = new Sprite(600, 600);
-                    PIPIHP.image = core.assets['img/barhp.png'];
-                    PIPIHP.scale(0.05, 0.5);
-                    PIPIHP.x = 375;
+                    var PIPIHP = new Sprite(150, 600);
+                    PIPIHP.image = core.assets['img/green.png'];
+                    PIPIHP.scale(0.2, 0.5);
+                    PIPIHP.x = 600;
                     PIPIHP.y = -30;
                     PIPIHP.originY = PIPIHP.height;
                     PIPIHP.rotate(-90);
@@ -526,10 +566,10 @@ window.onload = function ()
                     PIPIHPicon.y = 270;
                     PIPIHPicon.frame = 0;
 
-                    var PIPIATK = new Sprite(600, 600);
-                    PIPIATK.image = core.assets['img/barattack.png'];
-                    PIPIATK.scale(0.05, 0.5);
-                    PIPIATK.x = 375;
+                    var PIPIATK = new Sprite(150, 600);
+                    PIPIATK.image = core.assets['img/red.png'];
+                    PIPIATK.scale(0.2, 0.5);
+                    PIPIATK.x = 600;
                     PIPIATK.y = 20;
                     PIPIATK.originY = PIPIATK.height;
                     PIPIATK.rotate(-90);
@@ -542,10 +582,10 @@ window.onload = function ()
                     PIPIATKicon.y = 320;
                     PIPIATKicon.frame = 0;
 
-                    var PIPISPEED = new Sprite(600, 600);
-                    PIPISPEED.image = core.assets['img/barspeed.png'];
-                    PIPISPEED.scale(0.05, 0.5);
-                    PIPISPEED.x = 375;
+                    var PIPISPEED = new Sprite(150, 600);
+                    PIPISPEED.image = core.assets['img/blue.png'];
+                    PIPISPEED.scale(0.2, 0.5);
+                    PIPISPEED.x = 600;
                     PIPISPEED.y = 70;
                     PIPISPEED.originY = PIPISPEED.height;
                     PIPISPEED.rotate(-90);
@@ -574,12 +614,10 @@ window.onload = function ()
             //秒間コストを受け取り
             socket.on("PushSecondCost", function (CostData) {
                 var intCost = parseInt(CostData.Cost.toString());
-                if (haveCost < MaxCost)
-                {
+                if (haveCost < MaxCost) {
                     haveCost += intCost;
                 }
-                else
-                {
+                else {
                     haveCost = MaxCost;
                 }
             });
@@ -589,7 +627,14 @@ window.onload = function ()
                 var _PlyaerID = parseInt(CostData.PlayerID.toString());
                 var intCost = parseInt(CostData.Cost.toString());
                 if (_PlyaerID == myPlayerID)
-                    haveCost += intCost;
+                {
+                    if (haveCost < MaxCost) {
+                        haveCost += intCost;
+                    }
+                    else {
+                        haveCost = MaxCost;
+                    }
+                }
             });
 
             //ポーズ画面へ移動
@@ -631,23 +676,6 @@ window.onload = function ()
 
                 var maxCounter = 0;
 
-                for (var i = 0; i < spiritsLength; i++)
-                { 
-                    if(Spirits[i] != null)
-                    {
-                        ++maxCounter;
-                    }
-
-                    if(maxCounter == 10)
-                    {
-                        MaxSpirit.opacity = 0.5;
-                    }
-                    else
-                    {
-                        MaxSpirit.opacity = 0;
-                    }
-                }
-
                 //ポーズボタン
                 if (!core.input.up)
                 {
@@ -672,6 +700,33 @@ window.onload = function ()
                     {
                         var radian = Math.PI / 180 * degree;
                         Spirits[i].Sprite.y += Math.sin(radian) * 0.5;
+                    }
+                }
+
+                for (var i = 0; i < spiritsLength; i++) {
+                    if (Spirits[i] != null) {
+                        ++maxCounter;
+                    }
+
+                    if (maxCounter == 10) {
+                        if (!deadlyFlag)
+                        {
+                            deadlyBtn.opacity = 1;
+                        }
+                        scene.addChild(MaxSpirit);
+                        MaxSpirit.opacity = 0.8;
+                    }
+                    else {
+                        if (!deadlyFlag)
+                        {
+                            deadlyBtn.opacity = 0;
+                        }
+                        else
+                        {
+                            scene.removeChild(deadlyBtn);
+                        }
+                        scene.removeChild(MaxSpirit);
+                        //MaxSpirit.opacity = 0;
                     }
                 }
 
@@ -776,7 +831,7 @@ window.onload = function ()
                     }
                         //パワーアップを選択時
                     else {
-                        if (SpiritCheck(Spirits, Math.floor(PUPU.Level / powerUpInterval + 1), spiritsLength)) {
+                        if (SpiritCheck(Spirits, Math.floor(PUPU.Level / powerUpInterval + 1), spiritsLength) && PUPU.Level < 20) {
                             PowerUp(PUPU);
                             //スケール変更で成長度合いの表現
                             PUPUHP.scaleY = -PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP / 2.5;
@@ -809,7 +864,7 @@ window.onload = function ()
                     }
                         //パワーアップを選択時
                     else {
-                        if (SpiritCheck(Spirits, Math.floor(POPO.Level / powerUpInterval + 1), spiritsLength)) {
+                        if (SpiritCheck(Spirits, Math.floor(POPO.Level / powerUpInterval + 1), spiritsLength) && POPO.Level < 20) {
                             PowerUp(POPO);
                             //スケール変更で成長度合いの表現
                             POPOHP.scaleY = -POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP / 2.5;
@@ -842,7 +897,7 @@ window.onload = function ()
                     }
                         //パワーアップを選択時
                     else {
-                        if (SpiritCheck(Spirits, Math.floor(PIPI.Level / powerUpInterval + 1), spiritsLength)) {
+                        if (SpiritCheck(Spirits, Math.floor(PIPI.Level / powerUpInterval + 1), spiritsLength) && PIPI.Level < 20) {
                             PowerUp(PIPI);
                             //スケール変更で成長度合いの表現
                             PIPIHP.scaleY = -PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP / 2.5;
@@ -868,7 +923,6 @@ window.onload = function ()
             scene.addChild(deadlyBtn);
 
             scene.addChild(ponpu);
-            scene.addChild(MaxSpirit);
 
             scene.addChild(PUPU_UI);
             scene.addChild(POPO_UI);
@@ -962,6 +1016,8 @@ window.onload = function ()
         {
             var scene = new Scene();
 
+            core.frame = 0;
+
             ////////画像情報処理////////
             //背景
             var resultBack = new Sprite(1280, 720);
@@ -981,7 +1037,11 @@ window.onload = function ()
             ////////メイン処理////////
             scene.addEventListener(Event.TOUCH_START, function ()
             {
-                core.replaceScene(TitleScene());
+                if (core.frame > core.fps * 1.5)
+                {
+                    socket.emit("PhoneFinalEnd");
+                    core.replaceScene(TitleScene());
+                }     
             });
 
             return scene;
@@ -1103,6 +1163,28 @@ function FontSet(_Cost, Digit, Sprite)
     }
 
     return Sprite;
+}
+
+//デーモンの初期化
+function InitializeDemon(Demon, defaultDemon)
+{
+    Demon = defaultDemon;
+
+    return Demon;
+}
+
+function InitializeCost(haveCost, defaulthaveCost)
+{
+    haveCost = defaulthaveCost;
+
+    return haveCost;
+}
+
+function InitializeMaxCost(MaxCost, defaultMaxCost)
+{
+    MaxCost = defaultMaxCost;
+
+    return defaultMaxCost;
 }
 
 //コストが使えるかの確認
