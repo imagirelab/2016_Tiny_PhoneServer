@@ -16,7 +16,7 @@ window.onload = function ()
 {
     var core = new Core(1280, 720);
 
-    //悪魔                       Type     Dir  Level ID   BASECOST COST  HP  ATK  SPEED    
+    //悪魔                       Type   Dir  Level ID   BASECOST COST  HP  ATK  SPEED    
     var defaultPUPU = new Demon("PUPU", "None", 0, null, 100, 100, 150, 250, 3);
     var defaultPOPO = new Demon("POPO", "None", 0, null, 100, 100, 1000, 100, 2);
     var defaultPIPI = new Demon("PIPI", "None", 0, null, 100, 100, 100, 50, 5);
@@ -146,12 +146,17 @@ window.onload = function ()
             var scene = new Scene();
 
             //全体の初期化
-            PUPU = InitializeDemon(PUPU, defaultPUPU);
-            POPO = InitializeDemon(POPO, defaultPOPO);
-            PIPI = InitializeDemon(PIPI, defaultPIPI);
+            PUPU = defaultPUPU;
+            POPO = defaultPOPO;
+            PIPI = defaultPIPI;
 
-            haveCost = InitializeCost(haveCost, defaulthaveCost);
-            MaxCost = InitializeMaxCost(MaxCost, defaultMaxCost);
+            haveCost = defaulthaveCost;
+            MaxCost = defaultMaxCost;
+
+            for (var i = 0; i < spiritsLength; i++)
+            {
+                Spirits[i] = null;
+            }
 
             oneCallFlag = stoppingFlag = deadlyFlag = buttonUpFlag = false;
 
@@ -293,6 +298,20 @@ window.onload = function ()
 
             //フレームリセット
             core.frame = 0;
+
+            //全体の初期化
+            PUPU = InitializeDemon(PUPU, defaultPUPU);
+            POPO = InitializeDemon(POPO, defaultPOPO);
+            PIPI = InitializeDemon(PIPI, defaultPIPI);
+
+            haveCost = InitializeCost(haveCost, defaulthaveCost);
+            MaxCost = InitializeMaxCost(MaxCost, defaultMaxCost);
+
+            for (var i = 0; i < spiritsLength; i++) {
+                Spirits[i] = null;
+            }
+
+            oneCallFlag = stoppingFlag = deadlyFlag = buttonUpFlag = false;
 
             var FPSlbl = new Label();
             FPSlbl.font = "italic 36px 'ＭＳ 明朝', 'ＭＳ ゴシック', 'Times New Roman', serif, sans-serif";
@@ -726,20 +745,8 @@ window.onload = function ()
                             scene.removeChild(deadlyBtn);
                         }
                         scene.removeChild(MaxSpirit);
-                        //MaxSpirit.opacity = 0;
                     }
-                }
-
-                //PUPUHP.frame = PUPUHP.age % 57;
-                //PUPUATK.frame = PUPUATK.age % 57;
-                //PUPUSPEED.frame = PUPUSPEED.age % 57;
-                //POPOHP.frame = POPOHP.age % 57;
-                //POPOATK.frame = POPOATK.age % 57;
-                //POPOSPEED.frame = POPOSPEED.age % 57;
-                //PIPIHP.frame = PIPIHP.age % 57;
-                //PIPIATK.frame = PIPIATK.age % 57;
-                //PIPISPEED.frame = PIPISPEED.age % 57;
-                
+                }                
 
                 degree += 1.5;
             });
@@ -1006,8 +1013,7 @@ window.onload = function ()
             scene.addChild(PIPISPEEDicon);
 
             /////////////前面/////////////
-            scene.addChild(FPSlbl);
-            console.log(buttonUpFlag);
+            //scene.addChild(FPSlbl);
             return scene;
         };
 
@@ -1017,6 +1023,8 @@ window.onload = function ()
             var scene = new Scene();
 
             core.frame = 0;
+
+            var count = 0;
 
             ////////画像情報処理////////
             //背景
@@ -1035,12 +1043,20 @@ window.onload = function ()
             scene.addChild(tapRequest);
 
             ////////メイン処理////////
+            socket.on("FinalEnd");
+            {
+                count++;
+            }
+
             scene.addEventListener(Event.TOUCH_START, function ()
             {
                 if (core.frame > core.fps * 1.5)
                 {
                     socket.emit("PhoneFinalEnd");
-                    core.replaceScene(TitleScene());
+                    if (count >= 1)
+                    {
+                        core.replaceScene(TitleScene());
+                    }                    
                 }     
             });
 
