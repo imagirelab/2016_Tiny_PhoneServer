@@ -1024,8 +1024,6 @@ window.onload = function ()
 
             core.frame = 0;
 
-            var count = 0;
-
             ////////画像情報処理////////
             //背景
             var resultBack = new Sprite(1280, 720);
@@ -1042,21 +1040,12 @@ window.onload = function ()
             scene.addChild(resultBack);
             scene.addChild(tapRequest);
 
-            ////////メイン処理////////
-            socket.on("FinalEnd");
-            {
-                count++;
-            }
-
             scene.addEventListener(Event.TOUCH_START, function ()
             {
                 if (core.frame > core.fps * 1.5)
                 {
                     socket.emit("PhoneFinalEnd");
-                    if (count >= 1)
-                    {
-                        core.replaceScene(TitleScene());
-                    }                    
+                    window.location.reload();
                 }     
             });
 

@@ -107,10 +107,11 @@ io.sockets.on('connection', function (socket) {
     });
 
     //一定間隔でコストを送信
-    setInterval(function () {
+    setInterval(function ()
+    {
         if (PushCostFlag)
         {
-            socket.emit("PushSecondCost", { Cost: secondPerCost });
+            io.to(socket.id).emit("PushSecondCost", { Cost: secondPerCost });
         }
     }, 1500);
 
