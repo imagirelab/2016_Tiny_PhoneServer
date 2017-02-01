@@ -126,6 +126,7 @@ window.onload = function ()
     core.preload('img/life.png');
     core.preload('img/speed.png');
     core.preload('img/max.png');
+    core.preload('img/kankei.png');
 
     //スピリット
     core.preload('img/pupu_soul.png');
@@ -204,8 +205,8 @@ window.onload = function ()
                 if (core.frame > core.fps * 1.5)
                 {
                     //現在表示しているシーンをゲームシーンに置き換えます
-                    //core.replaceScene(MainScene());
-                    core.replaceScene(MatchingScene());
+                    core.replaceScene(MainScene());
+                    //core.replaceScene(MatchingScene());
                 }                
             });            
 
@@ -344,7 +345,7 @@ window.onload = function ()
                 deadlyBtn.image = core.assets['img/deadly.png'];
                 deadlyBtn.scale(1, 1);
                 deadlyBtn.opacity = 0;
-                deadlyBtn.x = 175;
+                deadlyBtn.x = 125;
                 deadlyBtn.y = 0;
 
                 //背景
@@ -450,6 +451,12 @@ window.onload = function ()
                 }
 
                 var strengthInterval = 3;
+
+                var weakPattern = new Sprite(600, 600);
+                weakPattern.image = core.assets['img/kankei.png'];
+                weakPattern.scale(0.3, 0.3);
+                weakPattern.x = 150;
+                weakPattern.y = -200;
 
                 ////////ステータスバー部分//////
                 {
@@ -820,21 +827,25 @@ window.onload = function ()
                 if (tapObj == "pupuBtn") {
                     if ((tapPos.y - endPos.y) > pupuBtn.height / 2 * pupuBtn.scaleY) {
                         Flag = CostCheck(haveCost, PUPU, Flag);
-                        haveCost = UseCost(haveCost, PUPU);
                         if (Flag == "Succes")
+                        {
+                            haveCost = UseCost(haveCost, PUPU);
                             PushDemon(PUPU, pupuBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                     else if ((tapPos.y - endPos.y) < -pupuBtn.height / 2 * pupuBtn.scaleY) {
                         Flag = CostCheck(haveCost, PUPU, Flag);
-                        haveCost = UseCost(haveCost, PUPU);
-                        if (Flag == "Succes")
+                        if (Flag == "Succes") {
+                            haveCost = UseCost(haveCost, PUPU);
                             PushDemon(PUPU, pupuBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                     else if ((tapPos.x - endPos.x) < -pupuBtn.height / 2 * pupuBtn.scaleX || (tapPos.x - endPos.x) > pupuBtn.height / 2 * pupuBtn.scaleX) {
                         Flag = CostCheck(haveCost, PUPU, Flag);
-                        haveCost = UseCost(haveCost, PUPU);
-                        if (Flag == "Succes")
+                        if (Flag == "Succes") {
+                            haveCost = UseCost(haveCost, PUPU);
                             PushDemon(PUPU, pupuBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                         //パワーアップを選択時
                     else {
@@ -853,21 +864,25 @@ window.onload = function ()
                 else if (tapObj == "popoBtn") {
                     if ((tapPos.y - endPos.y) > popoBtn.height / 2 * popoBtn.scaleY) {
                         Flag = CostCheck(haveCost, POPO, Flag);
-                        haveCost = UseCost(haveCost, POPO);
                         if (Flag == "Succes")
+                        {
+                            haveCost = UseCost(haveCost, POPO);
                             PushDemon(POPO, popoBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                     else if ((tapPos.y - endPos.y) < -popoBtn.height / 2 * popoBtn.scaleY) {
                         Flag = CostCheck(haveCost, POPO, Flag);
-                        haveCost = UseCost(haveCost, POPO);
-                        if (Flag == "Succes")
+                        if (Flag == "Succes") {
+                            haveCost = UseCost(haveCost, POPO);
                             PushDemon(POPO, popoBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                     else if ((tapPos.x - endPos.x) < -popoBtn.height / 2 * popoBtn.scaleX || (tapPos.x - endPos.x) > popoBtn.height / 2 * popoBtn.scaleX) {
                         Flag = CostCheck(haveCost, POPO, Flag);
-                        haveCost = UseCost(haveCost, POPO);
-                        if (Flag == "Succes")
+                        if (Flag == "Succes") {
+                            haveCost = UseCost(haveCost, POPO);
                             PushDemon(POPO, popoBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                         //パワーアップを選択時
                     else {
@@ -886,21 +901,25 @@ window.onload = function ()
                 else if (tapObj == "pipiBtn") {
                     if ((tapPos.y - endPos.y) > pipiBtn.height / 2 * pipiBtn.scaleY) {
                         Flag = CostCheck(haveCost, PIPI, Flag);
-                        haveCost = UseCost(haveCost, PIPI);
                         if (Flag == "Succes")
+                        {
+                            haveCost = UseCost(haveCost, PIPI);
                             PushDemon(PIPI, pipiBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                     else if ((tapPos.y - endPos.y) < -pipiBtn.height / 2 * pipiBtn.scaleY) {
                         Flag = CostCheck(haveCost, PIPI, Flag);
-                        haveCost = UseCost(haveCost, PIPI);
-                        if (Flag == "Succes")
+                        if (Flag == "Succes") {
+                            haveCost = UseCost(haveCost, PIPI);
                             PushDemon(PIPI, pipiBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                     else if ((tapPos.x - endPos.x) < -pipiBtn.height / 2 * pipiBtn.scaleX || (tapPos.x - endPos.x) > pipiBtn.height / 2 * pipiBtn.scaleX) {
                         Flag = CostCheck(haveCost, PIPI, Flag);
-                        haveCost = UseCost(haveCost, PIPI);
-                        if (Flag == "Succes")
+                        if (Flag == "Succes") {
+                            haveCost = UseCost(haveCost, PIPI);
                             PushDemon(PIPI, pipiBtn, tapPos, endPos, myPlayerID);
+                        }
                     }
                         //パワーアップを選択時
                     else {
@@ -1011,6 +1030,8 @@ window.onload = function ()
             scene.addChild(PIPIATKicon);
             scene.addChild(PIPISPEED);
             scene.addChild(PIPISPEEDicon);
+
+            scene.addChild(weakPattern);
 
             /////////////前面/////////////
             //scene.addChild(FPSlbl);
@@ -1148,7 +1169,7 @@ function Spirit(Type, PlayerID, core)
     this.Sprite.scale(0.1, 0.1);
 
     this.Sprite.x = Math.floor(Math.random() * 200)  - 100;
-    this.Sprite.y = Math.floor(Math.random() * 20) + 100;    
+    this.Sprite.y = Math.floor(Math.random() * 50) + 100;    
 }
 
 /////////////////関数/////////////////
@@ -1258,7 +1279,7 @@ function UsedSpirits(_Spirits, _Cost, Length, scene)
 function PowerUp(Demon)
 {
     Demon.Level += 1;
-    Demon.Cost = Demon.BaseCost + Demon.Level * 10;
+    Demon.Cost = Demon.BaseCost + Demon.Level * 5;
 
     return Demon;
 }
