@@ -1,9 +1,9 @@
 //var socket = io.connect('https://safe-reef-35714.herokuapp.com/');
-var socket = io.connect('ws://192.168.11.250:5555');
+//var socket = io.connect('ws://192.168.11.250:5555');
 //var socket = io.connect('ws://192.168.11.3:5555');
-//var socket = io.connect('ws://localhost:5555');
+var socket = io.connect('ws://localhost:5555');
 
-var myPlayerID = 0;
+var myPlayerID = 1;
 
 socket.on("connect", function () {
     var id = socket.io.engine.id;
@@ -86,47 +86,114 @@ window.onload = function ()
     core.preload('matchingUI/otu.png');
 
     //ボタン
-    core.preload('img/pupu.png');
-    core.preload('img/pipi.png');
-    core.preload('img/popo.png');
-    core.preload('img/pupu2.png');
-    core.preload('img/pipi2.png');
-    core.preload('img/popo2.png');
-    core.preload('img/ya_blue.png');
-    core.preload('img/ya_green.png');
-    core.preload('img/ya_red.png');
-    core.preload('img/deadly.png');
-    core.preload('img/deadly2.png');
-    core.preload('img/deadly3.png');
+    {
+        //1P
+        {
+            //ププ
+            {
+                core.preload('button/1p_red.png');
+                core.preload('button/1p_red_migi.png');
+                core.preload('button/1p_red_sita.png');
+                core.preload('button/1p_red_ue.png');
+            }
+            //ポポ
+            {
+                core.preload('button/1p_green.png');
+                core.preload('button/1p_green_migi.png');
+                core.preload('button/1p_green_sita.png');
+                core.preload('button/1p_green_ue.png');
+            }
+            //ピピ
+            {
+                core.preload('button/1p_blue.png');
+                core.preload('button/1p_blue_migi.png');
+                core.preload('button/1p_blue_sita.png');
+                core.preload('button/1p_blue_ue.png');
+            }
+        }
+        //2P
+        {
+            //ププ
+            {
+                core.preload('button/2p_red.png');
+                core.preload('button/2p_red_hidari.png');
+                core.preload('button/2p_red_sita.png');
+                core.preload('button/2p_red_ue.png');
+            }
+            //ポポ
+            {
+                core.preload('button/2p_green.png');
+                core.preload('button/2p_green_hidari.png');
+                core.preload('button/2p_green_sita.png');
+                core.preload('button/2p_green_ue.png');
+            }
+            //ピピ
+            {
+                core.preload('button/2p_blue.png');
+                core.preload('button/2p_blue_hidari.png');
+                core.preload('button/2p_blue_sita.png');
+                core.preload('button/2p_blue_ue.png');
+            }
+        }
+        core.preload('button/sikaku_pipi_blue.png');
+        core.preload('button/sikaku_pipi_use.png');
+        core.preload('button/sikaku_popo_green.png');
+        core.preload('button/sikaku_popo_use.png');
+        core.preload('button/sikaku_pupu_red.png');
+        core.preload('button/sikaku_pupu_use.png');
+
+        core.preload('img/deadly.png');
+        core.preload('img/deadly2.png');
+        core.preload('img/deadly3.png');
+    }    
 
     //UI・フォント
-    core.preload('img/CP.png');
-    core.preload('img/rednumber_siro.png');
-    core.preload('img/blacknumber.png');
-    core.preload('img/huki_blue.png');
-    core.preload('img/huki_green.png');
-    core.preload('img/huki_red.png');
-    core.preload('img/kama_soul.png');
-    core.preload('matchingUI/game_end_tap.png');
-    core.preload('matchingUI/tap_the_screen.png');
-    core.preload('matchingUI/title.png');
-    core.preload('matchingUI/teamb.png');
-    core.preload('matchingUI/teamr.png');
-    core.preload('matchingUI/matching.png');
-    core.preload('matchingUI/sumahotaiki.png');
-    core.preload('img/red.png');
-    core.preload('img/blue.png');
-    core.preload('img/green.png');
-    core.preload('img/barhp.png');
-    core.preload('img/barattack.png');
-    core.preload('img/barspeed.png');
-    core.preload('matchingUI/see_mo.png');
-    core.preload('img/kosutoko.png');
-    core.preload('img/attack.png');
-    core.preload('img/life.png');
-    core.preload('img/speed.png');
-    core.preload('img/max.png');
-    core.preload('img/kankei.png');
+    {
+        //フォント
+        {
+            core.preload('img/CP.png');
+            core.preload('img/rednumber_siro.png');
+            core.preload('img/blacknumber.png');
+            core.preload('img/kosutoko.png');
+            core.preload('img/max.png');
+            core.preload('img/LV.png');
+            core.preload('img/Lv_mozi.png');
+        }
+        //UI
+        {
+            //ステータスフレーム
+            {
+                core.preload('img/huki_blue.png');
+                core.preload('img/huki_green.png');
+                core.preload('img/huki_red.png');
+                core.preload('img/kyouka_sita.png');
+            }
+            //カマ
+            {
+                core.preload('img/kama_soul.png');
+                core.preload('img/kama_soul2.png');
+                core.preload('img/kama_soul_under.png');
+            }
+            //
+            core.preload('matchingUI/game_end_tap.png');
+            core.preload('matchingUI/tap_the_screen.png');
+            core.preload('matchingUI/title.png');
+            core.preload('matchingUI/teamb.png');
+            core.preload('matchingUI/teamr.png');
+            core.preload('matchingUI/matching.png');
+            core.preload('matchingUI/sumahotaiki.png');
+            core.preload('matchingUI/see_mo.png');
+            
+            core.preload('img/attack.png');
+            core.preload('img/shield.png');
+            core.preload('img/beam.png');
+            core.preload('img/attack_lv10.png');
+            core.preload('img/shield_lv10.png');
+            core.preload('img/beam_lv10.png');
+            
+            core.preload('img/kankei.png');
+        }
+    }   
 
     //スピリット
     core.preload('img/pupu_soul.png');
@@ -314,38 +381,80 @@ window.onload = function ()
 
             oneCallFlag = stoppingFlag = deadlyFlag = buttonUpFlag = false;
 
+            //フレーム表示
             var FPSlbl = new Label();
             FPSlbl.font = "italic 36px 'ＭＳ 明朝', 'ＭＳ ゴシック', 'Times New Roman', serif, sans-serif";
 
             ////////画像情報処理////////
             {
                 //ププのボタン
-                var pupuBtn = new Sprite(1200, 1200);
-                pupuBtn.image = core.assets['img/pupu.png'];
-                pupuBtn.scale(0.1, 0.1);
-                pupuBtn.x = 500;
-                pupuBtn.y = -480;
+                var pupuBtn = new Sprite(600, 600);
+                switch (myPlayerID)
+                {
+                    case 0:
+                        pupuBtn.image = core.assets['button/1p_red.png'];
+                        break;
+                    case 1:
+                        pupuBtn.image = core.assets['button/2p_red.png'];
+                }
+                
+                pupuBtn.scale(0.3, 0.3);
+                pupuBtn.x = 850;
+                pupuBtn.y = -200;
 
                 //ポポのボタン
-                var popoBtn = new Sprite(1200, 1200);
-                popoBtn.image = core.assets['img/popo.png'];
-                popoBtn.scale(0.1, 0.1);
-                popoBtn.x = 500;
-                popoBtn.y = -250;
+                var popoBtn = new Sprite(600, 600);
+                switch (myPlayerID) {
+                    case 0:
+                        popoBtn.image = core.assets['button/1p_green.png'];
+                        break;
+                    case 1:
+                        popoBtn.image = core.assets['button/2p_green.png'];
+                }
+                popoBtn.scale(0.3, 0.3);
+                popoBtn.x = 850;
+                popoBtn.y = 50;
 
                 //ピピのボタン
-                var pipiBtn = new Sprite(1200, 1200);
-                pipiBtn.image = core.assets['img/pipi.png'];
-                pipiBtn.scale(0.1, 0.1);
-                pipiBtn.x = 500;
-                pipiBtn.y = -20;
+                var pipiBtn = new Sprite(600, 600);
+                switch (myPlayerID) {
+                    case 0:
+                        pipiBtn.image = core.assets['button/1p_blue.png'];
+                        break;
+                    case 1:
+                        pipiBtn.image = core.assets['button/2p_blue.png'];
+                }
+                pipiBtn.scale(0.3, 0.3);
+                pipiBtn.x = 850;
+                pipiBtn.y = 300;
+
+                //ププのパワーアップボタン
+                var PUPUPowerUpButton = new Sprite(600, 600);
+                PUPUPowerUpButton.image = core.assets['button/sikaku_pupu_red.png'];
+                PUPUPowerUpButton.scale(0.2, 0.2);
+                PUPUPowerUpButton.x = -190;
+                PUPUPowerUpButton.y = -80;
+
+                //ププのパワーアップボタン
+                var POPOPowerUpButton = new Sprite(600, 600);
+                POPOPowerUpButton.image = core.assets['button/sikaku_popo_green.png'];
+                POPOPowerUpButton.scale(0.2, 0.2);
+                POPOPowerUpButton.x = -190;
+                POPOPowerUpButton.y = 100;
+
+                //ププのパワーアップボタン
+                var PIPIPowerUpButton = new Sprite(600, 600);
+                PIPIPowerUpButton.image = core.assets['button/sikaku_pipi_blue.png'];
+                PIPIPowerUpButton.scale(0.2, 0.2);
+                PIPIPowerUpButton.x = -190;
+                PIPIPowerUpButton.y = 280;
 
                 //必殺技のボタン
                 var deadlyBtn = new Sprite(239, 140);
-                deadlyBtn.image = core.assets['img/deadly.png'];
+                deadlyBtn.image = core.assets['img/deadly3.png'];
                 deadlyBtn.scale(1, 1);
-                deadlyBtn.opacity = 0;
-                deadlyBtn.x = 125;
+                deadlyBtn.opacity = 1;
+                deadlyBtn.x = 250;
                 deadlyBtn.y = 0;
 
                 //背景
@@ -358,29 +467,43 @@ window.onload = function ()
                 //ププのUI背景
                 var PUPU_UI = new Sprite(600, 600);
                 PUPU_UI.image = core.assets['img/huki_red.png'];
-                PUPU_UI.scale(0.6, 0.55);
-                PUPU_UI.x = 500;
+                PUPU_UI.scale(0.5, 0.5);
+                PUPU_UI.x = 600;
                 PUPU_UI.y = -175;
 
                 //ポポのUI背景
                 var POPO_UI = new Sprite(600, 600);
                 POPO_UI.image = core.assets['img/huki_green.png'];
-                POPO_UI.scale(0.6, 0.55);
-                POPO_UI.x = 500;
+                POPO_UI.scale(0.5, 0.5);
+                POPO_UI.x = 600;
                 POPO_UI.y = 60;
 
                 //ピピのUI背景
                 var PIPI_UI = new Sprite(600, 600);
                 PIPI_UI.image = core.assets['img/huki_blue.png'];
-                PIPI_UI.scale(0.6, 0.55);
-                PIPI_UI.x = 500;
+                PIPI_UI.scale(0.5, 0.5);
+                PIPI_UI.x = 600;
                 PIPI_UI.y = 295;
 
-                //ポンプ本体
+                //強化ボタンの背景
+                var PowerUpBack = new Sprite(160, 600);
+                PowerUpBack.image = core.assets['img/kyouka_sita.png'];
+                PowerUpBack.scale(1, 1);
+                PowerUpBack.x = 30;
+                PowerUpBack.y = 80;
+
+                //カマ本体
                 var ponpu = new Sprite(600, 400);
-                ponpu.image = core.assets['img/kama_soul.png'];
-                ponpu.scale(1, 1);
-                ponpu.x = 0;
+                switch(myPlayerID)
+                {
+                    case 0:
+                        ponpu.image = core.assets['img/kama_soul.png'];
+                        break;
+                    case 1:
+                        ponpu.image = core.assets['img/kama_soul2.png'];
+                }                
+                ponpu.scale(0.8, 0.8);
+                ponpu.x = 150;
                 ponpu.y = 200;
 
                 //最大と表示するためのUI
@@ -391,18 +514,11 @@ window.onload = function ()
                 MaxSpirit.y = 300;
                 MaxSpirit.opacity = 0.0;
 
-                //矢印
-                var Arrow = new Sprite(600, 600);
-                Arrow.image = core.assets['img/ya_blue.png'];
-                Arrow.scale(0.2, 0.2);
-                Arrow.x = 9999;
-                Arrow.y = 9999;
-
                 //CPのフォント
                 var CPFont = new Sprite(150, 150);
                 CPFont.image = core.assets['img/CP.png'];
                 CPFont.scale(0.7, 0.7);
-                CPFont.x = 400;
+                CPFont.x = 600;
                 CPFont.y = 600;
 
                 //所持コストのフォント
@@ -412,7 +528,7 @@ window.onload = function ()
                     costFont[i] = new Sprite(120, 120);
                     costFont[i].image = core.assets['img/rednumber_siro.png'];
                     costFont[i].scale(2, 2);
-                    costFont[i].x = 400 - (i + 1) * 75;
+                    costFont[i].x = 600 - (i + 1) * 75;
                     costFont[i].y = 600;
                     costFont[i].frame = 0;
                 }
@@ -425,8 +541,8 @@ window.onload = function ()
                     PUPUcostFont[i] = new Sprite(120, 120);
                     PUPUcostFont[i].image = core.assets['img/blacknumber.png'];
                     PUPUcostFont[i].scale(1, 1);
-                    PUPUcostFont[i].x = 800 - (i + 1) * 40;
-                    PUPUcostFont[i].y = 0;
+                    PUPUcostFont[i].x = 950 - (i + 1) * 40;
+                    PUPUcostFont[i].y = 70;
                     PUPUcostFont[i].frame = 0;
                 }
 
@@ -435,8 +551,8 @@ window.onload = function ()
                     POPOcostFont[i] = new Sprite(120, 120);
                     POPOcostFont[i].image = core.assets['img/blacknumber.png'];
                     POPOcostFont[i].scale(1, 1);
-                    POPOcostFont[i].x = 800 - (i + 1) * 40;
-                    POPOcostFont[i].y = 235;
+                    POPOcostFont[i].x = 950 - (i + 1) * 40;
+                    POPOcostFont[i].y = 310;
                     POPOcostFont[i].frame = 0;
                 }
 
@@ -445,194 +561,107 @@ window.onload = function ()
                     PIPIcostFont[i] = new Sprite(120, 120);
                     PIPIcostFont[i].image = core.assets['img/blacknumber.png'];
                     PIPIcostFont[i].scale(1, 1);
-                    PIPIcostFont[i].x = 800 - (i + 1) * 40;
-                    PIPIcostFont[i].y = 470;
+                    PIPIcostFont[i].x = 950 - (i + 1) * 40;
+                    PIPIcostFont[i].y = 545;
                     PIPIcostFont[i].frame = 0;
                 }
 
-                var strengthInterval = 3;
+                //デーモンのレベル桁数
+                var DemonLevelDigit = 2;    //桁数
 
+                var PUPULevelFont = new Array();
+                for (var i = 0; i < DemonLevelDigit; i++)
+                {
+                    PUPULevelFont[i] = new Sprite(120, 120);
+                    PUPULevelFont[i].image = core.assets['img/blacknumber.png'];
+                    PUPULevelFont[i].scale(1, 1);
+                    PUPULevelFont[i].x = 950 - (i + 1) * 40;
+                    PUPULevelFont[i].y = 5;
+                    PUPULevelFont[i].frame = 0;
+                }
+
+                var POPOLevelFont = new Array();
+                for (var i = 0; i < DemonLevelDigit; i++) {
+                    POPOLevelFont[i] = new Sprite(120, 120);
+                    POPOLevelFont[i].image = core.assets['img/blacknumber.png'];
+                    POPOLevelFont[i].scale(1, 1);
+                    POPOLevelFont[i].x = 950 - (i + 1) * 40;
+                    POPOLevelFont[i].y = 240;
+                    POPOLevelFont[i].frame = 0;
+                }
+
+                var PIPILevelFont = new Array();
+                for (var i = 0; i < DemonLevelDigit; i++) {
+                    PIPILevelFont[i] = new Sprite(120, 120);
+                    PIPILevelFont[i].image = core.assets['img/blacknumber.png'];
+                    PIPILevelFont[i].scale(1, 1);
+                    PIPILevelFont[i].x = 950 - (i + 1) * 40;
+                    PIPILevelFont[i].y = 475;
+                    PIPILevelFont[i].frame = 0;
+                }
+
+                //相性関係図
                 var weakPattern = new Sprite(600, 600);
                 weakPattern.image = core.assets['img/kankei.png'];
-                weakPattern.scale(0.3, 0.3);
-                weakPattern.x = 150;
-                weakPattern.y = -200;
+                weakPattern.scale(0.25, 0.25);
+                weakPattern.x = 300;
+                weakPattern.y = -150;
 
-                ////////ステータスバー部分//////
+                ////////ステータス部分//////
                 {
                     var PUPUCostFont = new Sprite(150, 150);
                     PUPUCostFont.image = core.assets['img/kosutoko.png'];
                     PUPUCostFont.scale(0.5, 0.5);
-                    PUPUCostFont.x = 600;
-                    PUPUCostFont.y = -10;
+                    PUPUCostFont.x = 750;
+                    PUPUCostFont.y = 60;
 
-                    var PUPUHP = new Sprite(150, 600);
-                    PUPUHP.image = core.assets['img/green.png'];
-                    PUPUHP.scale(0.2, 0.5);
-                    PUPUHP.x = 600;
-                    PUPUHP.y = -500;
-                    PUPUHP.originY = PUPUHP.height;
-                    PUPUHP.rotate(-90);
-                    PUPUHP.frame = 0;
+                    var PUPUicon = new Sprite(600, 600);
+                    PUPUicon.image = core.assets['img/attack.png'];
+                    PUPUicon.scale(0.2, 0.2);
+                    PUPUicon.x = 450;
+                    PUPUicon.y = -250;
 
-                    var PUPUHPicon = new Sprite(600, 600);
-                    PUPUHPicon.image = core.assets['img/life.png'];
-                    PUPUHPicon.scale(0.06, 0.06);
-                    PUPUHPicon.x = 350;
-                    PUPUHPicon.y = -200;
-                    PUPUHPicon.frame = 0;
-
-                    var PUPUATK = new Sprite(150, 600);
-                    PUPUATK.image = core.assets['img/red.png'];
-                    PUPUATK.scale(0.2, 0.5);
-                    PUPUATK.x = 600;
-                    PUPUATK.y = -450;
-                    PUPUATK.originY = PUPUATK.height;
-                    PUPUATK.rotate(-90);
-                    PUPUATK.frame = 0;
-
-                    var PUPUATKicon = new Sprite(600, 600);
-                    PUPUATKicon.image = core.assets['img/attack.png'];
-                    PUPUATKicon.scale(0.06, 0.06);
-                    PUPUATKicon.x = 350;
-                    PUPUATKicon.y = -150;
-                    PUPUATKicon.frame = 0;
-
-                    var PUPUSPEED = new Sprite(150, 600);
-                    PUPUSPEED.image = core.assets['img/blue.png'];
-                    PUPUSPEED.scale(0.2, 0.5);
-                    PUPUSPEED.x = 600;
-                    PUPUSPEED.y = -400;
-                    PUPUSPEED.originY = PUPUSPEED.height;
-                    PUPUSPEED.rotate(-90);
-                    PUPUSPEED.frame = 0;
-
-                    var PUPUSPEEDicon = new Sprite(600, 600);
-                    PUPUSPEEDicon.image = core.assets['img/speed.png'];
-                    PUPUSPEEDicon.scale(0.06, 0.06);
-                    PUPUSPEEDicon.x = 350;
-                    PUPUSPEEDicon.y = -100;
-                    PUPUSPEEDicon.frame = 0;
-
+                    var PUPULv = new Sprite(150, 150);
+                    PUPULv.image = core.assets['img/Lv_mozi.png'];
+                    PUPULv.scale(0.5, 0.5);
+                    PUPULv.x = 800;
+                    PUPULv.y = -10;
 
                     var POPOCostFont = new Sprite(150, 150);
                     POPOCostFont.image = core.assets['img/kosutoko.png'];
                     POPOCostFont.scale(0.5, 0.5);
-                    POPOCostFont.x = 600;
-                    POPOCostFont.y = 225;
+                    POPOCostFont.x = 750;
+                    POPOCostFont.y = 300;
 
-                    var POPOHP = new Sprite(150, 600);
-                    POPOHP.image = core.assets['img/green.png'];
-                    POPOHP.scale(0.2, 0.5);
-                    POPOHP.x = 600;
-                    POPOHP.y = -265;
-                    POPOHP.originY = POPOHP.height;
-                    POPOHP.rotate(-90);
-                    POPOHP.frame = 0;
+                    var POPOicon = new Sprite(600, 600);
+                    POPOicon.image = core.assets['img/shield.png'];
+                    POPOicon.scale(0.2, 0.2);
+                    POPOicon.x = 450;
+                    POPOicon.y = -20;
 
-                    var POPOHPicon = new Sprite(600, 600);
-                    POPOHPicon.image = core.assets['img/life.png'];
-                    POPOHPicon.scale(0.06, 0.06);
-                    POPOHPicon.x = 350;
-                    POPOHPicon.y = 35;
-                    POPOHPicon.frame = 0;
-
-                    var POPOATK = new Sprite(150, 600);
-                    POPOATK.image = core.assets['img/red.png'];
-                    POPOATK.scale(0.2, 0.5);
-                    POPOATK.x = 600;
-                    POPOATK.y = -215;
-                    POPOATK.originY = POPOATK.height;
-                    POPOATK.rotate(-90);
-                    POPOATK.frame = 0;
-
-                    var POPOATKicon = new Sprite(600, 600);
-                    POPOATKicon.image = core.assets['img/attack.png'];
-                    POPOATKicon.scale(0.06, 0.06);
-                    POPOATKicon.x = 350;
-                    POPOATKicon.y = 85;
-                    POPOATKicon.frame = 0;
-
-                    var POPOSPEED = new Sprite(150, 600);
-                    POPOSPEED.image = core.assets['img/blue.png'];
-                    POPOSPEED.scale(0.2, 0.5);
-                    POPOSPEED.x = 600;
-                    POPOSPEED.y = -165;
-                    POPOSPEED.originY = POPOSPEED.height;
-                    POPOSPEED.rotate(-90);
-                    POPOSPEED.frame = 0;
-
-                    var POPOSPEEDicon = new Sprite(600, 600);
-                    POPOSPEEDicon.image = core.assets['img/speed.png'];
-                    POPOSPEEDicon.scale(0.06, 0.06);
-                    POPOSPEEDicon.x = 350;
-                    POPOSPEEDicon.y = 135;
-                    POPOSPEEDicon.frame = 0;
-
+                    var POPOLv = new Sprite(150, 150);
+                    POPOLv.image = core.assets['img/Lv_mozi.png'];
+                    POPOLv.scale(0.5, 0.5);
+                    POPOLv.x = 800;
+                    POPOLv.y = 230;
 
                     var PIPICostFont = new Sprite(150, 150);
                     PIPICostFont.image = core.assets['img/kosutoko.png'];
                     PIPICostFont.scale(0.5, 0.5);
-                    PIPICostFont.x = 600;
-                    PIPICostFont.y = 460;
+                    PIPICostFont.x = 750;
+                    PIPICostFont.y = 535;
 
-                    var PIPIHP = new Sprite(150, 600);
-                    PIPIHP.image = core.assets['img/green.png'];
-                    PIPIHP.scale(0.2, 0.5);
-                    PIPIHP.x = 600;
-                    PIPIHP.y = -30;
-                    PIPIHP.originY = PIPIHP.height;
-                    PIPIHP.rotate(-90);
-                    PIPIHP.frame = 0;
+                    var PIPIicon = new Sprite(600, 600);
+                    PIPIicon.image = core.assets['img/beam.png'];
+                    PIPIicon.scale(0.2, 0.2);
+                    PIPIicon.x = 450;
+                    PIPIicon.y = 210;
 
-                    var PIPIHPicon = new Sprite(600, 600);
-                    PIPIHPicon.image = core.assets['img/life.png'];
-                    PIPIHPicon.scale(0.06, 0.06);
-                    PIPIHPicon.x = 350;
-                    PIPIHPicon.y = 270;
-                    PIPIHPicon.frame = 0;
-
-                    var PIPIATK = new Sprite(150, 600);
-                    PIPIATK.image = core.assets['img/red.png'];
-                    PIPIATK.scale(0.2, 0.5);
-                    PIPIATK.x = 600;
-                    PIPIATK.y = 20;
-                    PIPIATK.originY = PIPIATK.height;
-                    PIPIATK.rotate(-90);
-                    PIPIATK.frame = 0;
-
-                    var PIPIATKicon = new Sprite(600, 600);
-                    PIPIATKicon.image = core.assets['img/attack.png'];
-                    PIPIATKicon.scale(0.06, 0.06);
-                    PIPIATKicon.x = 350;
-                    PIPIATKicon.y = 320;
-                    PIPIATKicon.frame = 0;
-
-                    var PIPISPEED = new Sprite(150, 600);
-                    PIPISPEED.image = core.assets['img/blue.png'];
-                    PIPISPEED.scale(0.2, 0.5);
-                    PIPISPEED.x = 600;
-                    PIPISPEED.y = 70;
-                    PIPISPEED.originY = PIPISPEED.height;
-                    PIPISPEED.rotate(-90);
-                    PIPISPEED.frame = 0;
-
-                    var PIPISPEEDicon = new Sprite(600, 600);
-                    PIPISPEEDicon.image = core.assets['img/speed.png'];
-                    PIPISPEEDicon.scale(0.06, 0.06);
-                    PIPISPEEDicon.x = 350;
-                    PIPISPEEDicon.y = 370;
-                    PIPISPEEDicon.frame = 0;
-
-                    PUPUHP.scaleY = -PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP / 2.5;
-                    PUPUATK.scaleY = -PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK / 2.5;
-                    PUPUSPEED.scaleY = -PUPU.SPEED / MAXSPEED / 2.5;
-                    POPOHP.scaleY = -POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP / 2.5;
-                    POPOATK.scaleY = -POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK / 2.5;
-                    POPOSPEED.scaleY = -POPO.SPEED / MAXSPEED / 2.5;
-                    PIPIHP.scaleY = -PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP / 2.5;
-                    PIPIATK.scaleY = -PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK / 2.5;
-                    PIPISPEED.scaleY = -PIPI.SPEED / MAXSPEED / 2.5;
+                    var PIPILv = new Sprite(150, 150);
+                    PIPILv.image = core.assets['img/Lv_mozi.png'];
+                    PIPILv.scale(0.5, 0.5);
+                    PIPILv.x = 800;
+                    PIPILv.y = 460;
                 }
             }
             ////////メイン処理////////
@@ -695,6 +724,29 @@ window.onload = function ()
                     FontSet(PIPI.Cost, i, PIPIcostFont[i]);
                 }
 
+                for (var i = DemonLevelDigit - 1; i >= 0; i--)
+                {
+                    FontSet(PUPU.Level, i, PUPULevelFont[i]);
+                    FontSet(POPO.Level, i, POPOLevelFont[i]);
+                    FontSet(PIPI.Level, i, PIPILevelFont[i]);
+                }
+
+                //レベルでアイコン変化
+                if (PUPU.Level >= 10)
+                {
+                    PUPUicon.image = core.assets['img/attack_lv10.png'];
+                }
+
+                if (POPO.Level >= 10)
+                {
+                    POPOicon.image = core.assets['img/shield_lv10.png'];
+                }
+
+                if (PIPI.Level >= 10)
+                {
+                    PIPIicon.image = core.assets['img/beam_lv10.png'];
+                }
+
                 //スペースボタンを押すと魂が取得できるように
                 core.addEventListener('summonSpiritbuttondown', function () {
                     oneCallFlag = true;
@@ -735,22 +787,16 @@ window.onload = function ()
                     }
 
                     if (maxCounter == 10) {
-                        if (!deadlyFlag)
+                        if (!deadlyFlag && deadlyBtn.image == core.assets['img/deadly3.png'])
                         {
-                            deadlyBtn.opacity = 1;
-                        }
+                            deadlyBtn.image = core.assets['img/deadly.png'];
+                        }              
                         scene.addChild(MaxSpirit);
                         MaxSpirit.opacity = 0.8;
                     }
                     else {
-                        if (!deadlyFlag)
-                        {
-                            deadlyBtn.opacity = 0;
-                        }
-                        else
-                        {
-                            scene.removeChild(deadlyBtn);
-                        }
+                        if (deadlyFlag)
+                            deadlyBtn.image = core.assets['img/deadly3.png'];
                         scene.removeChild(MaxSpirit);
                     }
                 }                
@@ -760,22 +806,31 @@ window.onload = function ()
 
             //ボタンが押された時の処理
             pupuBtn.on(Event.TOUCH_START, function () {
-                pupuBtn.image = core.assets['img/pupu2.png'];
                 tapObj = "pupuBtn";
-            });
+            });            
 
             popoBtn.on(Event.TOUCH_START, function () {
-                popoBtn.image = core.assets['img/popo2.png'];
                 tapObj = "popoBtn";
             });
 
             pipiBtn.on(Event.TOUCH_START, function () {
-                pipiBtn.image = core.assets['img/pipi2.png'];
                 tapObj = "pipiBtn";
             });
 
+            PUPUPowerUpButton.on(Event.TOUCH_START, function () {
+                PUPUPowerUpButton.image = core.assets['button/sikaku_pupu_use.png'];
+            });
+
+            POPOPowerUpButton.on(Event.TOUCH_START, function () {
+                POPOPowerUpButton.image = core.assets['button/sikaku_popo_use.png'];
+            });
+
+            PIPIPowerUpButton.on(Event.TOUCH_START, function () {
+                PIPIPowerUpButton.image = core.assets['button/sikaku_pipi_use.png'];
+            });
+
             deadlyBtn.on(Event.TOUCH_START, function () {
-                if (!deadlyFlag) {
+                if (deadlyBtn.image == core.assets['img/deadly.png']) {
                     deadlyBtn.image = core.assets['img/deadly2.png'];
                     tapObj = "deadlyBtn";
                 }
@@ -788,17 +843,73 @@ window.onload = function ()
             });
 
             //離された時の処理
+            //ププ
             pupuBtn.on(Event.TOUCH_END, function () {
-                pupuBtn.image = core.assets['img/pupu.png'];
+                switch (myPlayerID) {
+                    case 0:
+                        pupuBtn.image = core.assets['button/1p_red.png'];
+                        break;
+                    case 1:
+                        pupuBtn.image = core.assets['button/2p_red.png'];
+                }
             });
 
+            //ポポ
             popoBtn.on(Event.TOUCH_END, function () {
-                popoBtn.image = core.assets['img/popo.png'];
+                switch (myPlayerID) {
+                    case 0:
+                        popoBtn.image = core.assets['button/1p_green.png'];
+                        break;
+                    case 1:
+                        popoBtn.image = core.assets['button/2p_green.png'];
+                }
+            });
+            
+            //ピピ
+            pipiBtn.on(Event.TOUCH_END, function () {
+                switch (myPlayerID) {
+                    case 0:
+                        pipiBtn.image = core.assets['button/1p_blue.png'];
+                        break;
+                    case 1:
+                        pipiBtn.image = core.assets['button/2p_blue.png'];
+                }
             });
 
-            pipiBtn.on(Event.TOUCH_END, function () {
-                console.log("call");
-                pipiBtn.image = core.assets['img/pipi.png'];
+            //ププのパワーアップ
+            PUPUPowerUpButton.on(Event.TOUCH_END, function () {
+                PUPUPowerUpButton.image = core.assets['button/sikaku_pupu_red.png'];
+                if (SpiritCheck(Spirits, Math.floor(PUPU.Level / powerUpInterval + 1), spiritsLength) && PUPU.Level < 20) {
+                    PowerUp(PUPU);
+                    //使用した魂の削除
+                    Spirits = UsedSpirits(Spirits, Math.floor(PUPU.Level / powerUpInterval + 1), spiritsLength, scene);
+                    //必殺技ボタンが使えなくなるように
+                    deadlyBtn.image = core.assets['img/deadly3.png'];
+                }
+            });
+
+            //ポポのパワーアップ
+            POPOPowerUpButton.on(Event.TOUCH_END, function () {
+                POPOPowerUpButton.image = core.assets['button/sikaku_popo_green.png'];
+                if (SpiritCheck(Spirits, Math.floor(POPO.Level / powerUpInterval + 1), spiritsLength) && POPO.Level < 20) {
+                    PowerUp(POPO);
+                    //使用した魂の削除
+                    Spirits = UsedSpirits(Spirits, Math.floor(POPO.Level / powerUpInterval + 1), spiritsLength, scene);
+                    //必殺技ボタンが使えなくなるように
+                    deadlyBtn.image = core.assets['img/deadly3.png'];
+                }
+            });
+
+            //ピピのパワーアップ
+            PIPIPowerUpButton.on(Event.TOUCH_END, function () {
+                PIPIPowerUpButton.image = core.assets['button/sikaku_pipi_blue.png'];
+                if (SpiritCheck(Spirits, Math.floor(PIPI.Level / powerUpInterval + 1), spiritsLength) && PIPI.Level < 20) {
+                    PowerUp(PIPI);
+                    //使用した魂の削除
+                    Spirits = UsedSpirits(Spirits, Math.floor(PIPI.Level / powerUpInterval + 1), spiritsLength, scene);
+                    //必殺技ボタンが使えなくなるように
+                    deadlyBtn.image = core.assets['img/deadly3.png'];
+                }
             });
 
             deadlyBtn.on(Event.TOUCH_END, function () {
@@ -814,9 +925,6 @@ window.onload = function ()
                         deadlyFlag = true;
                         //使用した魂の削除
                         Spirits = UsedSpirits(Spirits, deadlyCost, spiritsLength, scene);
-                    }
-                    else {
-                        deadlyBtn.image = core.assets['img/deadly.png'];
                     }
                 }
             });
@@ -847,18 +955,6 @@ window.onload = function ()
                             PushDemon(PUPU, pupuBtn, tapPos, endPos, myPlayerID);
                         }
                     }
-                        //パワーアップを選択時
-                    else {
-                        if (SpiritCheck(Spirits, Math.floor(PUPU.Level / powerUpInterval + 1), spiritsLength) && PUPU.Level < 20) {
-                            PowerUp(PUPU);
-                            //スケール変更で成長度合いの表現
-                            PUPUHP.scaleY = -PUPU.HP * Math.pow(1.1, PUPU.Level) / MAXHP / 2.5;
-                            PUPUATK.scaleY = -PUPU.ATK * Math.pow(1.1, PUPU.Level) / MAXATK / 2.5;
-                            PUPUSPEED.scaleY = -PUPU.SPEED / MAXSPEED / 2.5;
-                            //使用した魂の削除
-                            Spirits = UsedSpirits(Spirits, Math.floor(PUPU.Level / powerUpInterval + 1), spiritsLength, scene);
-                        }
-                    }
                 }
                     //ポポボタンの場所で押してた場合
                 else if (tapObj == "popoBtn") {
@@ -882,18 +978,6 @@ window.onload = function ()
                         if (Flag == "Succes") {
                             haveCost = UseCost(haveCost, POPO);
                             PushDemon(POPO, popoBtn, tapPos, endPos, myPlayerID);
-                        }
-                    }
-                        //パワーアップを選択時
-                    else {
-                        if (SpiritCheck(Spirits, Math.floor(POPO.Level / powerUpInterval + 1), spiritsLength) && POPO.Level < 20) {
-                            PowerUp(POPO);
-                            //スケール変更で成長度合いの表現
-                            POPOHP.scaleY = -POPO.HP * Math.pow(1.1, POPO.Level) / MAXHP / 2.5;
-                            POPOATK.scaleY = -POPO.ATK * Math.pow(1.1, POPO.Level) / MAXATK / 2.5;
-                            POPOSPEED.scaleY = -POPO.SPEED / MAXSPEED / 2.5;
-                            //使用した魂の削除
-                            Spirits = UsedSpirits(Spirits, Math.floor(POPO.Level / powerUpInterval + 1), spiritsLength, scene);
                         }
                     }
                 }
@@ -921,21 +1005,29 @@ window.onload = function ()
                             PushDemon(PIPI, pipiBtn, tapPos, endPos, myPlayerID);
                         }
                     }
-                        //パワーアップを選択時
-                    else {
-                        if (SpiritCheck(Spirits, Math.floor(PIPI.Level / powerUpInterval + 1), spiritsLength) && PIPI.Level < 20) {
-                            PowerUp(PIPI);
-                            //スケール変更で成長度合いの表現
-                            PIPIHP.scaleY = -PIPI.HP * Math.pow(1.1, PIPI.Level) / MAXHP / 2.5;
-                            PIPIATK.scaleY = -PIPI.ATK * Math.pow(1.1, PIPI.Level) / MAXATK / 2.5;
-                            PIPISPEED.scaleY = -PIPI.SPEED / MAXSPEED / 2.5;
-                            //使用した魂の削除
-                            Spirits = UsedSpirits(Spirits, Math.floor(PIPI.Level / powerUpInterval + 1), spiritsLength, scene);
-                        }
-                    }
                 }
 
                 tapObj = null;
+            });
+
+            //矢印表示のためにここに処理
+            scene.on(Event.TOUCH_MOVE, function (nowPos)
+            {
+                //ププボタンの場所で押してた場合
+                if (tapObj == "pupuBtn") 
+                {
+                    ArrowSet(PUPU, pupuBtn, tapPos, nowPos, pupuBtn, core);
+                }
+                    //ポポボタンの場所で押してた場合
+                else if (tapObj == "popoBtn") 
+                {
+                    ArrowSet(POPO, popoBtn, tapPos, nowPos, popoBtn, core);
+                }
+                    //ピピボタンの場所で押してた場合
+                else if (tapObj == "pipiBtn") 
+                {
+                    ArrowSet(PIPI, pipiBtn, tapPos, nowPos, pipiBtn, core);
+                }
             });
 
             ////////描画////////
@@ -948,34 +1040,25 @@ window.onload = function ()
             scene.addChild(pipiBtn);
             scene.addChild(deadlyBtn);
 
+            scene.addChild(PowerUpBack);
+
+            scene.addChild(PUPUPowerUpButton);
+            scene.addChild(POPOPowerUpButton);
+            scene.addChild(PIPIPowerUpButton);
+
             scene.addChild(ponpu);
 
             scene.addChild(PUPU_UI);
             scene.addChild(POPO_UI);
             scene.addChild(PIPI_UI);
 
-            //矢印表示のためにここに処理
-            scene.on(Event.TOUCH_MOVE, function (nowPos) {
-                //ププボタンの場所で押してた場合
-                if (tapObj == "pupuBtn") {
-                    Arrow = ArrowSet(PUPU, pipiBtn, tapPos, nowPos, Arrow, core);
-                    scene.addChild(Arrow);
-                }
-                    //ポポボタンの場所で押してた場合
-                else if (tapObj == "popoBtn") {
-                    Arrow = ArrowSet(POPO, pipiBtn, tapPos, nowPos, Arrow, core);
-                    scene.addChild(Arrow);
-                }
-                    //ピピボタンの場所で押してた場合
-                else if (tapObj == "pipiBtn") {
-                    Arrow = ArrowSet(PIPI, pipiBtn, tapPos, nowPos, Arrow, core);
-                    scene.addChild(Arrow);
-                }
-            });
-            scene.on(Event.TOUCH_END, function () {
-                Arrow.x = 9000;
-                Arrow.y = -9000;
-            });
+            scene.addChild(PUPUicon);
+            scene.addChild(POPOicon);
+            scene.addChild(PIPIicon);
+
+            scene.addChild(PUPULv);
+            scene.addChild(POPOLv);
+            scene.addChild(PIPILv);
 
             //魂の受け取り&描画処理
             socket.on("SpiritPushed", function (SpiritData) {
@@ -999,7 +1082,8 @@ window.onload = function ()
             scene.addChild(PIPICostFont);
 
             //所持コストのフォント
-            for (var i = 0; i < costDigit; i++) {
+            for (var i = 0; i < costDigit; i++)
+            {
                 scene.addChild(costFont[i]);
             }
 
@@ -1011,25 +1095,14 @@ window.onload = function ()
                 scene.addChild(PIPIcostFont[i]);
             }
 
-            //各悪魔のステータスバー
-            scene.addChild(PUPUHP);
-            scene.addChild(PUPUHPicon);
-            scene.addChild(PUPUATK);
-            scene.addChild(PUPUATKicon);
-            scene.addChild(PUPUSPEED);
-            scene.addChild(PUPUSPEEDicon);
-            scene.addChild(POPOHP);
-            scene.addChild(POPOHPicon);
-            scene.addChild(POPOATK);
-            scene.addChild(POPOATKicon);
-            scene.addChild(POPOSPEED);
-            scene.addChild(POPOSPEEDicon);
-            scene.addChild(PIPIHP);
-            scene.addChild(PIPIHPicon);
-            scene.addChild(PIPIATK);
-            scene.addChild(PIPIATKicon);
-            scene.addChild(PIPISPEED);
-            scene.addChild(PIPISPEEDicon);
+            for (var i = 0; i < DemonLevelDigit; i++)
+            {
+                scene.addChild(PUPULevelFont[i]);
+                scene.addChild(POPOLevelFont[i]);
+                scene.addChild(PIPILevelFont[i]);
+            }
+
+            //各悪魔のステータス
 
             scene.addChild(weakPattern);
 
@@ -1216,7 +1289,7 @@ function InitializeMaxCost(MaxCost, defaultMaxCost)
 //コストが使えるかの確認
 function CostCheck(_haveCost, _demon, _Flag)
 {
-    if (_haveCost - (_demon.Cost + _demon.Level * 10) >= 0) {
+    if (_haveCost - (_demon.Cost) >= 0) {
         _Flag = "Succes";
     }
     else {
@@ -1225,6 +1298,7 @@ function CostCheck(_haveCost, _demon, _Flag)
     }
     return _Flag;
 }
+
 //コスト消費
 function UseCost(_haveCost, _demon)
 {
@@ -1234,6 +1308,7 @@ function UseCost(_haveCost, _demon)
     }
     return _haveCost;
 }
+
 //スピリットが足りてるかの確認
 function SpiritCheck(_Spirits, _Cost, Length)
 {
@@ -1256,6 +1331,7 @@ function SpiritCheck(_Spirits, _Cost, Length)
         return false;
     }
 }
+
 //スピリット消費
 function UsedSpirits(_Spirits, _Cost, Length, scene)
 {
@@ -1275,6 +1351,7 @@ function UsedSpirits(_Spirits, _Cost, Length, scene)
 
     return _Spirits;
 }
+
 //悪魔の強化
 function PowerUp(Demon)
 {
@@ -1283,6 +1360,7 @@ function PowerUp(Demon)
 
     return Demon;
 }
+
 //矢印の方向指定
 function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
 {
@@ -1292,90 +1370,114 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
     {
         if (demon.Type == "PUPU")
         {
-            Arrow.image = core.assets['img/ya_red.png'];
-            Arrow.x = 800;
-            Arrow.y = -250;
-            Arrow.rotation = 0;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_red_ue.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_red_ue.png'];
+            }
         }
-        else if (demon.Type == "POPO")
+        else if(demon.Type == "POPO")
         {
-            Arrow.image = core.assets['img/ya_green.png'];
-            Arrow.x = 800;
-            Arrow.y = -25;
-            Arrow.rotation = 0;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_green_ue.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_green_ue.png'];
+            }
         }
-        else if (demon.Type == "PIPI")
+        else if(demon.Type == "PIPI")
         {
-            Arrow.image = core.assets['img/ya_blue.png'];
-            Arrow.x = 800;
-            Arrow.y = 200;
-            Arrow.rotation = 0;
-        }        
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_blue_ue.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_blue_ue.png'];
+            }
+        }    
     }
     //下方向時
     else if ((startPos.y - endPos.y) < -btn.height / 2 * btn.scaleY)
     {
         if (demon.Type == "PUPU") {
-            Arrow.image = core.assets['img/ya_red.png'];
-            Arrow.x = 800;
-            Arrow.y = -85;
-            Arrow.rotation = 180;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_red_sita.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_red_sita.png'];
+            }
         }
         else if (demon.Type == "POPO") {
-            Arrow.image = core.assets['img/ya_green.png'];
-            Arrow.x = 800;
-            Arrow.y = 140;
-            Arrow.rotation = 180;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_green_sita.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_green_sita.png'];
+            }
         }
         else if (demon.Type == "PIPI") {
-            Arrow.image = core.assets['img/ya_blue.png'];
-            Arrow.x = 800;
-            Arrow.y = 365;
-            Arrow.rotation = 180;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_blue_sita.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_blue_sita.png'];
+            }
         }
     }
     //右方向時
     else if ((startPos.x - endPos.x) < -btn.height / 2 * btn.scaleX)
     {
         if (demon.Type == "PUPU") {
-            Arrow.image = core.assets['img/ya_red.png'];
-            Arrow.x = 900;
-            Arrow.y = -172.5;
-            Arrow.rotation = 90;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_red_migi.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_red_hidari.png'];
+            }
         }
         else if (demon.Type == "POPO") {
-            Arrow.image = core.assets['img/ya_green.png'];
-            Arrow.x = 900;
-            Arrow.y = 62.5;
-            Arrow.rotation = 90;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_green_migi.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_green_hidari.png'];
+            }
         }
         else if (demon.Type == "PIPI") {
-            Arrow.image = core.assets['img/ya_blue.png'];
-            Arrow.x = 900;
-            Arrow.y = 287.5;
-            Arrow.rotation = 90;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_blue_migi.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_blue_hidari.png'];
+            }
         }
     }
     //左方向時
     else if ((startPos.x - endPos.x) > btn.height / 2 * btn.scaleX)
     {
         if (demon.Type == "PUPU") {
-            Arrow.image = core.assets['img/ya_red.png'];
-            Arrow.x = 700;
-            Arrow.y = -172.5;
-            Arrow.rotation = 270;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_red_migi.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_red_hidari.png'];
+            }
         }
         else if (demon.Type == "POPO") {
-            Arrow.image = core.assets['img/ya_green.png'];
-            Arrow.x = 700;
-            Arrow.y = 62.5;
-            Arrow.rotation = 270;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_green_migi.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_green_hidari.png'];
+            }
         }
         else if (demon.Type == "PIPI") {
-            Arrow.image = core.assets['img/ya_blue.png'];
-            Arrow.x = 700;
-            Arrow.y = 287.5;
-            Arrow.rotation = 270;
+            switch (myPlayerID) {
+                case 0:
+                    Arrow.image = core.assets['button/1p_blue_migi.png'];
+                case 1:
+                    Arrow.image = core.assets['button/2p_blue_hidari.png'];
+            }
         }
     }
 
