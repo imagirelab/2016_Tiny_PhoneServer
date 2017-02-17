@@ -1,7 +1,7 @@
 //var socket = io.connect('https://safe-reef-35714.herokuapp.com/');
-//var socket = io.connect('ws://192.168.11.250:5555');
+var socket = io.connect('ws://192.168.11.250:5555');
 //var socket = io.connect('ws://192.168.11.3:5555');
-var socket = io.connect('ws://localhost:5555');
+//var socket = io.connect('ws://localhost:5555');
 
 var myPlayerID = 1;
 
@@ -156,7 +156,7 @@ window.onload = function ()
             core.preload('img/blacknumber.png');
             core.preload('img/kosutoko.png');
             core.preload('img/max.png');
-            core.preload('img/LV.png');
+            core.preload('img/LVup.png');
             core.preload('img/Lv_mozi.png');
         }
         //UI
@@ -272,8 +272,8 @@ window.onload = function ()
                 if (core.frame > core.fps * 1.5)
                 {
                     //現在表示しているシーンをゲームシーンに置き換えます
-                    core.replaceScene(MainScene());
-                    //core.replaceScene(MatchingScene());
+                    //core.replaceScene(MainScene());
+                    core.replaceScene(MatchingScene());
                 }                
             });            
 
@@ -506,11 +506,19 @@ window.onload = function ()
                 ponpu.x = 150;
                 ponpu.y = 200;
 
+                //カマ背景
+                var ponpuBack = new Sprite(700, 600);
+                ponpuBack.image = core.assets['img/kama_soul_under.png'];
+                ponpuBack.scale(0.8, 0.8);
+                ponpuBack.x = 100;
+                ponpuBack.y = 25;
+                ponpuBack.originY = 600;
+
                 //最大と表示するためのUI
                 var MaxSpirit = new Sprite(256, 256);
                 MaxSpirit.image = core.assets['img/max.png'];
                 MaxSpirit.scale(1, 1);
-                MaxSpirit.x = 175;
+                MaxSpirit.x = 325;
                 MaxSpirit.y = 300;
                 MaxSpirit.opacity = 0.0;
 
@@ -605,63 +613,112 @@ window.onload = function ()
                 weakPattern.image = core.assets['img/kankei.png'];
                 weakPattern.scale(0.25, 0.25);
                 weakPattern.x = 300;
-                weakPattern.y = -150;
+                weakPattern.y = -200;
 
                 ////////ステータス部分//////
                 {
-                    var PUPUCostFont = new Sprite(150, 150);
-                    PUPUCostFont.image = core.assets['img/kosutoko.png'];
-                    PUPUCostFont.scale(0.5, 0.5);
-                    PUPUCostFont.x = 750;
-                    PUPUCostFont.y = 60;
+                    //ププ
+                    {
+                        var PUPUCostFont = new Sprite(150, 150);
+                        PUPUCostFont.image = core.assets['img/kosutoko.png'];
+                        PUPUCostFont.scale(0.5, 0.5);
+                        PUPUCostFont.x = 750;
+                        PUPUCostFont.y = 60;
 
-                    var PUPUicon = new Sprite(600, 600);
-                    PUPUicon.image = core.assets['img/attack.png'];
-                    PUPUicon.scale(0.2, 0.2);
-                    PUPUicon.x = 450;
-                    PUPUicon.y = -250;
+                        var PUPUicon = new Sprite(600, 600);
+                        PUPUicon.image = core.assets['img/attack.png'];
+                        PUPUicon.scale(0.2, 0.2);
+                        PUPUicon.x = 450;
+                        PUPUicon.y = -250;
 
-                    var PUPULv = new Sprite(150, 150);
-                    PUPULv.image = core.assets['img/Lv_mozi.png'];
-                    PUPULv.scale(0.5, 0.5);
-                    PUPULv.x = 800;
-                    PUPULv.y = -10;
+                        var PUPULv = new Sprite(150, 150);
+                        PUPULv.image = core.assets['img/Lv_mozi.png'];
+                        PUPULv.scale(0.5, 0.5);
+                        PUPULv.x = 800;
+                        PUPULv.y = -10;
 
-                    var POPOCostFont = new Sprite(150, 150);
-                    POPOCostFont.image = core.assets['img/kosutoko.png'];
-                    POPOCostFont.scale(0.5, 0.5);
-                    POPOCostFont.x = 750;
-                    POPOCostFont.y = 300;
+                        var PUPULvup = new Sprite(250, 150);
+                        PUPULvup.image = core.assets['img/LVup.png'];
+                        PUPULvup.scale(0.5, 0.5);
+                        PUPULvup.x = 700;
+                        PUPULvup.y = 105;
 
-                    var POPOicon = new Sprite(600, 600);
-                    POPOicon.image = core.assets['img/shield.png'];
-                    POPOicon.scale(0.2, 0.2);
-                    POPOicon.x = 450;
-                    POPOicon.y = -20;
+                        var PUPULvupFont = new Sprite(120, 120);
+                        PUPULvupFont.image = core.assets['img/blacknumber.png'];
+                        PUPULvupFont.scale(0.8, 0.8);
+                        PUPULvupFont.x = 850;
+                        PUPULvupFont.y = 125;
+                        PUPULvupFont.frame = 0;
+                    }
+                    
+                    //ポポ
+                    {
+                        var POPOCostFont = new Sprite(150, 150);
+                        POPOCostFont.image = core.assets['img/kosutoko.png'];
+                        POPOCostFont.scale(0.5, 0.5);
+                        POPOCostFont.x = 750;
+                        POPOCostFont.y = 300;
 
-                    var POPOLv = new Sprite(150, 150);
-                    POPOLv.image = core.assets['img/Lv_mozi.png'];
-                    POPOLv.scale(0.5, 0.5);
-                    POPOLv.x = 800;
-                    POPOLv.y = 230;
+                        var POPOicon = new Sprite(600, 600);
+                        POPOicon.image = core.assets['img/shield.png'];
+                        POPOicon.scale(0.2, 0.2);
+                        POPOicon.x = 450;
+                        POPOicon.y = -20;
 
-                    var PIPICostFont = new Sprite(150, 150);
-                    PIPICostFont.image = core.assets['img/kosutoko.png'];
-                    PIPICostFont.scale(0.5, 0.5);
-                    PIPICostFont.x = 750;
-                    PIPICostFont.y = 535;
+                        var POPOLv = new Sprite(150, 150);
+                        POPOLv.image = core.assets['img/Lv_mozi.png'];
+                        POPOLv.scale(0.5, 0.5);
+                        POPOLv.x = 800;
+                        POPOLv.y = 230;
 
-                    var PIPIicon = new Sprite(600, 600);
-                    PIPIicon.image = core.assets['img/beam.png'];
-                    PIPIicon.scale(0.2, 0.2);
-                    PIPIicon.x = 450;
-                    PIPIicon.y = 210;
+                        var POPOLvup = new Sprite(250, 150);
+                        POPOLvup.image = core.assets['img/LVup.png'];
+                        POPOLvup.scale(0.5, 0.5);
+                        POPOLvup.x = 700;
+                        POPOLvup.y = 345;
 
-                    var PIPILv = new Sprite(150, 150);
-                    PIPILv.image = core.assets['img/Lv_mozi.png'];
-                    PIPILv.scale(0.5, 0.5);
-                    PIPILv.x = 800;
-                    PIPILv.y = 460;
+                        var POPOLvupFont = new Sprite(120, 120);
+                        POPOLvupFont.image = core.assets['img/blacknumber.png'];
+                        POPOLvupFont.scale(0.8, 0.8);
+                        POPOLvupFont.x = 850;
+                        POPOLvupFont.y = 365;
+                        POPOLvupFont.frame = 0;
+                    }
+                    
+                    //ピピ
+                    {
+                        var PIPICostFont = new Sprite(150, 150);
+                        PIPICostFont.image = core.assets['img/kosutoko.png'];
+                        PIPICostFont.scale(0.5, 0.5);
+                        PIPICostFont.x = 750;
+                        PIPICostFont.y = 535;
+
+                        var PIPIicon = new Sprite(600, 600);
+                        PIPIicon.image = core.assets['img/beam.png'];
+                        PIPIicon.scale(0.2, 0.2);
+                        PIPIicon.x = 450;
+                        PIPIicon.y = 210;
+
+                        var PIPILv = new Sprite(150, 150);
+                        PIPILv.image = core.assets['img/Lv_mozi.png'];
+                        PIPILv.scale(0.5, 0.5);
+                        PIPILv.x = 800;
+                        PIPILv.y = 460;
+
+                        var PIPILvup = new Sprite(250, 150);
+                        PIPILvup.image = core.assets['img/LVup.png'];
+                        PIPILvup.scale(0.5, 0.5);
+                        PIPILvup.x = 700;
+                        PIPILvup.y = 580;
+
+                        var PIPILvupFont = new Sprite(120, 120);
+                        PIPILvupFont.image = core.assets['img/blacknumber.png'];
+                        PIPILvupFont.scale(0.8, 0.8);
+                        PIPILvupFont.x = 850;
+                        PIPILvupFont.y = 600;
+                        PIPILvupFont.frame = 0;
+                    }
+
                 }
             }
             ////////メイン処理////////
@@ -724,12 +781,61 @@ window.onload = function ()
                     FontSet(PIPI.Cost, i, PIPIcostFont[i]);
                 }
 
+                //レベルフォント
                 for (var i = DemonLevelDigit - 1; i >= 0; i--)
                 {
-                    FontSet(PUPU.Level, i, PUPULevelFont[i]);
-                    FontSet(POPO.Level, i, POPOLevelFont[i]);
-                    FontSet(PIPI.Level, i, PIPILevelFont[i]);
+                    if (PUPU.Level < 20)
+                    {
+                        FontSet(PUPU.Level, i, PUPULevelFont[i]);
+                    }
+                    else
+                    {
+                        PUPULevelFont[i].image = core.assets['img/rednumber_siro.png'];
+                        FontSet(PUPU.Level, i, PUPULevelFont[i]);
+                    }
+                    
+                    if (POPO.Level < 20)
+                    {
+                        FontSet(POPO.Level, i, POPOLevelFont[i]);
+                    }
+                    else
+                    {
+                        POPOLevelFont[i].image = core.assets['img/rednumber_siro.png'];
+                        FontSet(POPO.Level, i, POPOLevelFont[i]);
+                    }
+
+                    if (PIPI.Level < 20) {
+                        FontSet(PIPI.Level, i, PIPILevelFont[i]);
+                    }
+                    else {
+                        PIPILevelFont[i].image = core.assets['img/rednumber_siro.png'];
+                        FontSet(PIPI.Level, i, PIPILevelFont[i]);
+                    }
                 }
+
+                //レベルアップに必要な魂数フォント
+                {
+                    if (PUPU.Level < 20) {
+                        FontSet(Math.floor(PUPU.Level / powerUpInterval + 1), 0, PUPULvupFont);
+                    }
+                    else {
+                        scene.removeChild(PUPULvupFont);
+                    }
+
+                    if (POPO.Level < 20) {
+                        FontSet(Math.floor(POPO.Level / powerUpInterval + 1), 0, POPOLvupFont);
+                    }
+                    else {
+                        scene.removeChild(POPOLvupFont);
+                    }
+
+                    if (PIPI.Level < 20) {
+                        FontSet(Math.floor(PIPI.Level / powerUpInterval + 1), 0, PIPILvupFont);
+                    }
+                    else {
+                        scene.removeChild(PIPILvupFont);
+                    }
+                }                
 
                 //レベルでアイコン変化
                 if (PUPU.Level >= 10)
@@ -754,18 +860,6 @@ window.onload = function ()
 
                 var maxCounter = 0;
 
-                //ポーズボタン
-                if (!core.input.up)
-                {
-                    buttonUpFlag = true;
-                }
-
-                if(core.input.up && buttonUpFlag)
-                {
-                    buttonUpFlag = false;
-                    socket.emit("StopRequest");                 
-                }
-
                 core.addEventListener('summonSpiritbuttonup', function () {
                     if (oneCallFlag) {
                         socket.emit("SpiritPush", { Type: "PUPU", PlayerID: myPlayerID });
@@ -785,21 +879,23 @@ window.onload = function ()
                     if (Spirits[i] != null) {
                         ++maxCounter;
                     }
+                }
 
-                    if (maxCounter == 10) {
-                        if (!deadlyFlag && deadlyBtn.image == core.assets['img/deadly3.png'])
-                        {
-                            deadlyBtn.image = core.assets['img/deadly.png'];
-                        }              
-                        scene.addChild(MaxSpirit);
-                        MaxSpirit.opacity = 0.8;
+                if (maxCounter == 10) {
+                    if (!deadlyFlag && deadlyBtn.image == core.assets['img/deadly3.png']) {
+                        deadlyBtn.image = core.assets['img/deadly.png'];
                     }
-                    else {
-                        if (deadlyFlag)
-                            deadlyBtn.image = core.assets['img/deadly3.png'];
-                        scene.removeChild(MaxSpirit);
-                    }
-                }                
+                    scene.addChild(MaxSpirit);
+                    MaxSpirit.opacity = 0.8;
+                }
+                else {
+                    if (deadlyFlag)
+                        deadlyBtn.image = core.assets['img/deadly3.png'];
+                    scene.removeChild(MaxSpirit);
+                }
+
+                //カマ背景のサイズ変更
+                ponpuBack.scaleY = parseFloat(maxCounter / 10) * 0.8;
 
                 degree += 1.5;
             });
@@ -1046,6 +1142,7 @@ window.onload = function ()
             scene.addChild(POPOPowerUpButton);
             scene.addChild(PIPIPowerUpButton);
 
+            scene.addChild(ponpuBack);
             scene.addChild(ponpu);
 
             scene.addChild(PUPU_UI);
@@ -1059,6 +1156,14 @@ window.onload = function ()
             scene.addChild(PUPULv);
             scene.addChild(POPOLv);
             scene.addChild(PIPILv);
+
+            scene.addChild(PUPULvup);
+            scene.addChild(POPOLvup);
+            scene.addChild(PIPILvup);
+
+            scene.addChild(PUPULvupFont);
+            scene.addChild(POPOLvupFont);
+            scene.addChild(PIPILvupFont);
 
             //魂の受け取り&描画処理
             socket.on("SpiritPushed", function (SpiritData) {
@@ -1241,7 +1346,7 @@ function Spirit(Type, PlayerID, core)
 
     this.Sprite.scale(0.1, 0.1);
 
-    this.Sprite.x = Math.floor(Math.random() * 200)  - 100;
+    this.Sprite.x = Math.floor(Math.random() * 200)  + 50;
     this.Sprite.y = Math.floor(Math.random() * 50) + 100;    
 }
 
