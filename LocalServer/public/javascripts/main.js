@@ -295,7 +295,7 @@ window.onload = function ()
 
             //プレイヤーIDのセット
             socket.on("PushPlayerID", function (idData) {
-                myPlayerID = idData.PlayerID;
+                myPlayerID = parseInt(idData.PlayerID);
                 console.log("Connect PlayerID: " + myPlayerID);
             });
 
@@ -1478,8 +1478,10 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_red_ue.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_red_ue.png'];
+                    break;
             }
         }
         else if(demon.Type == "POPO")
@@ -1487,8 +1489,10 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_green_ue.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_green_ue.png'];
+                    break;
             }
         }
         else if(demon.Type == "PIPI")
@@ -1496,8 +1500,10 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_blue_ue.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_blue_ue.png'];
+                    break;
             }
         }    
     }
@@ -1508,24 +1514,30 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_red_sita.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_red_sita.png'];
+                    break;
             }
         }
         else if (demon.Type == "POPO") {
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_green_sita.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_green_sita.png'];
+                    break;
             }
         }
         else if (demon.Type == "PIPI") {
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_blue_sita.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_blue_sita.png'];
+                    break;
             }
         }
     }
@@ -1536,24 +1548,30 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_red_migi.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_red_hidari.png'];
+                    break;
             }
         }
         else if (demon.Type == "POPO") {
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_green_migi.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_green_hidari.png'];
+                    break;
             }
         }
         else if (demon.Type == "PIPI") {
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_blue_migi.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_blue_hidari.png'];
+                    break;
             }
         }
     }
@@ -1564,24 +1582,30 @@ function ArrowSet(demon, btn, startPos, endPos, Arrow, core)
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_red_migi.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_red_hidari.png'];
+                    break;
             }
         }
         else if (demon.Type == "POPO") {
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_green_migi.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_green_hidari.png'];
+                    break;
             }
         }
         else if (demon.Type == "PIPI") {
             switch (myPlayerID) {
                 case 0:
                     Arrow.image = core.assets['button/1p_blue_migi.png'];
+                    break;
                 case 1:
                     Arrow.image = core.assets['button/2p_blue_hidari.png'];
+                    break;
             }
         }
     }

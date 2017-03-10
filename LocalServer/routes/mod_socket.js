@@ -97,6 +97,7 @@ io.sockets.on('connection', function (socket) {
 
     //試合が終了したときに送る
     socket.on("GameEndRequest", function () {
+        secondPerCost = 25;
         socket.emit("PushGameEndRequest");
         socket.broadcast.emit("PushGameEndRequest");
     });
@@ -104,6 +105,10 @@ io.sockets.on('connection', function (socket) {
     //リザルト終了を送信
     socket.on("PhoneFinalEnd", function () {
         socket.broadcast.emit("FinalEnd");
+    });
+
+    socket.on("RoundEndRequest", function () {
+        secondPerCost *= 2;
     });
 
     //一定間隔でコストを送信
